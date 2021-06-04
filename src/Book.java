@@ -2,7 +2,7 @@ public class Book {
     public int ISBN;
     public String bookName;
     public String author;
-    public User lanetagare;
+    public User loanUser;
 
     public Book() {
     }
@@ -38,12 +38,12 @@ public class Book {
         this.author = author;
     }
 
-    public User getLanetagare() {
-        return lanetagare;
+    public User getLoanUser() {
+        return loanUser;
     }
 
-    public void setLanetagare(User user) {
-        this.lanetagare = user;
+    public void setLoanUser(User user) {
+        this.loanUser = user;
     }
 }
 

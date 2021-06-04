@@ -18,11 +18,11 @@ public class LoanManager extends Book {
             System.out.println();
         }
     }
-    public void addBook(int isbn, String namn, String forfattare){
+    public void addBook(int isbn, String namn, String author){
 
         int ISBN = isbn;
         String Namn = namn;
-        String Author = forfattare;
+        String Author = author;
 
         try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/Music?useSSL=false","root","Hanna0811" )){
             PreparedStatement book = conn.prepareStatement("Insert INTO books Values (?,?,?)");
