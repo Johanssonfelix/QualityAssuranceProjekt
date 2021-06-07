@@ -1,7 +1,7 @@
-import java.sql.*;
-import java.util.Scanner;
-import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import java.util.Scanner;
 
 public class LoanSystem extends LoanManager {
     private static Logger logger = LogManager.getLogger(LoanSystem.class.getName());
@@ -10,23 +10,6 @@ public class LoanSystem extends LoanManager {
 
         Scanner input = new Scanner(System.in);
 
-        logger.info("Starting");
-        int a, b;
-
-        Scanner in = new Scanner(System.in);
-        System.out.println("print a and b");
-        a = in.nextInt();
-        b = in.nextInt();
-        in.close();
-        logger.debug(String.format("a=%d", "b=%d" ));
-        if (a < b){
-            System.out.println(b);
-        }else {
-            System.out.println(a);
-        }
-        logger.info("Ended");
-
-        /*
         int option = 0;
         boolean avsluta = false;
         LoanManager lm = new LoanManager();
@@ -89,6 +72,6 @@ public class LoanSystem extends LoanManager {
                 System.out.println("Ha det bra");
             }
         }
-         */
+
     }
 }

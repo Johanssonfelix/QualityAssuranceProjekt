@@ -8,7 +8,7 @@ public class LoanManager extends Book {
     public void addBook(Book book){
 
         try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/Music?useSSL=false","root","Hanna0811" )){
-            PreparedStatement thebook = conn.prepareStatement("Insert INTO books Values (?,?,?)");
+            PreparedStatement thebook = conn.prepareStatement("Insert INTO books Values (?,?)");
             thebook.setInt(1,book.getBookISBN());
             thebook.setString(2,book.getBookName());
             thebook.executeUpdate();
@@ -24,7 +24,7 @@ public class LoanManager extends Book {
         String Author = author;
 
         try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/Music?useSSL=false","root","Hanna0811" )){
-            PreparedStatement book = conn.prepareStatement("Insert INTO books Values (?,?,?)");
+            PreparedStatement book = conn.prepareStatement("Insert INTO books Values (?,?)");
             book.setInt(1,ISBN);
             book.setString(2,Namn);
             book.executeUpdate();
@@ -83,7 +83,7 @@ public class LoanManager extends Book {
             // Skapar ett set där statment utför MYSQL queryn
             // Utför settet tills allt har skrivits ut
             while (result.next()) {
-                System.out.println((result.getInt(1) + ": " + result.getString(2) + ": " + result.getString(3) ));
+                System.out.println((result.getInt(1) + ": " + result.getString(2)));
             }
 
         }
