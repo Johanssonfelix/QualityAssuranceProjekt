@@ -2,7 +2,6 @@ public class User{
     public int userId;
     public String userName;
     public int userType;
-    private String password;
 
     public User() {
     }
@@ -11,7 +10,6 @@ public class User{
         this.userId = userId;
         this.userName = userName;
         this.userType = userType;
-        this.password = password;
     }
 
     public int getUserId() {
@@ -51,16 +49,5 @@ public class User{
                 User teacher = new User();
             }
         }
-
-
     }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
 }
