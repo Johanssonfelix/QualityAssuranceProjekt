@@ -1,4 +1,4 @@
-public class User {
+public class User{
     public int userId;
     public String userName;
     public int userType;

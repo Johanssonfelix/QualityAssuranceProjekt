@@ -11,7 +11,6 @@ public class LoanManager extends Book {
             PreparedStatement thebook = conn.prepareStatement("Insert INTO books Values (?,?,?)");
             thebook.setInt(1,book.getBookISBN());
             thebook.setString(2,book.getBookName());
-            thebook.setString(3,book.getAuthor());
             thebook.executeUpdate();
         }
         catch (SQLException ex){
@@ -28,7 +27,6 @@ public class LoanManager extends Book {
             PreparedStatement book = conn.prepareStatement("Insert INTO books Values (?,?,?)");
             book.setInt(1,ISBN);
             book.setString(2,Namn);
-            book.setString(3,Author);
             book.executeUpdate();
         }
         catch (SQLException ex){
@@ -112,8 +110,8 @@ public class LoanManager extends Book {
             // Skapar ett set där statment utför MYSQL queryn
             // Utför settet tills allt har skrivits ut
             while (result.next()) {
-                newBook = new Book(result.getInt(1),result.getString(2),result.getString(3));
-                System.out.println(result.getInt(1)+ " " + result.getString(2) + " " + result.getString(3));
+                newBook = new Book(result.getInt(1),result.getString(2));
+                System.out.println(result.getInt(1)+ " " + result.getString(2));
             }
 
         }
@@ -139,8 +137,8 @@ public class LoanManager extends Book {
             // Skapar ett set där statment utför MYSQL queryn
             // Utför settet tills allt har skrivits ut
             while (result.next()) {
-                newBook = new Book(result.getInt(1),result.getString(2),result.getString(3));
-                System.out.println(result.getInt(1)+ ": " + result.getString(2) + ": " + result.getString(3));
+                newBook = new Book(result.getInt(1),result.getString(2));
+                System.out.println(result.getInt(1)+ ": " + result.getString(2));
             }
 
         }

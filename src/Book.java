@@ -1,16 +1,14 @@
 public class Book {
     public int ISBN;
     public String bookName;
-    public String author;
     public User loanUser;
 
     public Book() {
     }
 
-    public Book(int isbn, String bookName, String author) {
+    public Book(int isbn, String bookName) {
         this.ISBN = isbn;
         this.bookName = bookName;
-        this.author = author;
     }
 
 
@@ -30,14 +28,6 @@ public class Book {
         this.bookName = bookName;
     }
 
-    public String getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(String author) {
-        this.author = author;
-    }
-
     public User getLoanUser() {
         return loanUser;
     }
@@ -45,6 +35,7 @@ public class Book {
     public void setLoanUser(User user) {
         this.loanUser = user;
     }
+
 }
 
 
