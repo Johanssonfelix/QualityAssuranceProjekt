@@ -8,9 +8,10 @@ public class LoanManager extends Book {
     public void addBook(Book book){
 
         try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/Music?useSSL=false","root","Hanna0811" )){
-            PreparedStatement thebook = conn.prepareStatement("Insert INTO books Values (?,?)");
+            PreparedStatement thebook = conn.prepareStatement("Insert INTO books Values (?,?,?)");
             thebook.setInt(1,book.getBookISBN());
             thebook.setString(2,book.getBookName());
+            thebook.setInt(3,book.getNumOfBooks());
             thebook.executeUpdate();
         }
         catch (SQLException ex){
@@ -24,9 +25,10 @@ public class LoanManager extends Book {
         String Author = author;
 
         try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/Music?useSSL=false","root","Hanna0811" )){
-            PreparedStatement book = conn.prepareStatement("Insert INTO books Values (?,?)");
+            PreparedStatement book = conn.prepareStatement("Insert INTO books Values (?,?,?)");
             book.setInt(1,ISBN);
             book.setString(2,Namn);
+            book.setInt(3,numOfBooks);
             book.executeUpdate();
         }
         catch (SQLException ex){

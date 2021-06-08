@@ -10,6 +10,7 @@ public class LoanSystem extends LoanManager {
 
         Scanner input = new Scanner(System.in);
 
+
         int option = 0;
         boolean avsluta = false;
         LoanManager lm = new LoanManager();
@@ -25,17 +26,17 @@ public class LoanSystem extends LoanManager {
             if (option == 1) {
                 lm.showBooks();
             } else if (option == 2) {
+
                 int bokval = 0;
                 System.out.println("Vilken bok vill du söka efter?");
                 System.out.println("1.Bokens namn?");
                 System.out.println("2.Bokens IBSN?");
                 System.out.print("");
                 bokval = input.nextInt();
-                if(bokval == 1){ // Söker på namnet på boken
-                    String boknamn;
+                if(bokval == 1){ // Söker på namnet på boken!
                     System.out.println("Skriv in Bokens namn!");
                     System.out.print("===>");
-                    boknamn = input.next();
+                    String boknamn = input.next();
                     lm.getBookName(boknamn);
                 }else if(bokval == 2){ //Med detta val ska man kunna söka efter ISBN
                     int isbn;

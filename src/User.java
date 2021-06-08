@@ -1,14 +1,16 @@
 public class User{
     public int userId;
-    public String userName;
+    public String forname;
+    public String lastname;
     public int userType;
 
     public User() {
     }
 
-    public User(int userId, String userName, int userType) {
+    public User(int userId, String forname, String lastname, int userType) {
         this.userId = userId;
-        this.userName = userName;
+        this.forname = forname;
+        this.lastname = lastname;
         this.userType = userType;
     }
 
@@ -20,12 +22,19 @@ public class User{
         this.userId = userId;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getForName() {
+        return forname;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setForName(String forname) {
+        this.forname = forname;
+    }
+    public String getLastName() {
+        return lastname;
+    }
+
+    public void setLastName(String lastname) {
+        this.lastname = lastname;
     }
 
     public int getUserType() {
