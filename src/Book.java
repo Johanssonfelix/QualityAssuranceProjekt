@@ -2,13 +2,15 @@ public class Book {
     public int ISBN;
     public String bookName;
     public User loanUser;
+    public int numOfBooks;
 
     public Book() {
     }
 
-    public Book(int isbn, String bookName) {
+    public Book(int isbn, String bookName, int numOfBooks) {
         this.ISBN = isbn;
         this.bookName = bookName;
+        this.numOfBooks = numOfBooks;
     }
 
 
@@ -34,6 +36,13 @@ public class Book {
 
     public void setLoanUser(User user) {
         this.loanUser = user;
+    }
+
+    public int getNumOfBooks(){
+        return numOfBooks;
+    }
+    public void setNumOfBooks(int numOfBooks){
+        this.numOfBooks = numOfBooks;
     }
 
 }
