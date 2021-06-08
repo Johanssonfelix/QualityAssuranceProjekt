@@ -7,6 +7,7 @@ public class Main {
     public static void main(String[] args) {
         logger.info("Hej");
         logger.trace("Hrj" );
+        logger.debug("Show");
         logger.error("BBBB");
     }
 }

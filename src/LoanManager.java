@@ -3,70 +3,8 @@ import java.sql.*;
 
 public class LoanManager extends Book {
 
+
     public LoanManager(){}
-
-    public void addBook(Book book){
-
-        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/Music?useSSL=false","root","Hanna0811" )){
-            PreparedStatement thebook = conn.prepareStatement("Insert INTO books Values (?,?,?)");
-            thebook.setInt(1,book.getBookISBN());
-            thebook.setString(2,book.getBookName());
-            thebook.setInt(3,book.getNumOfBooks());
-            thebook.executeUpdate();
-        }
-        catch (SQLException ex){
-            System.out.println();
-        }
-    }
-    public void addBook(int isbn, String namn, int numberofbooks){
-
-        int ISBN = isbn;
-        String Namn = namn;
-        int NumberOfBooks = numberofbooks;
-
-        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/Music?useSSL=false","root","Hanna0811" )){
-            PreparedStatement book = conn.prepareStatement("Insert INTO books Values (?,?,?)");
-            book.setInt(1,ISBN);
-            book.setString(2,Namn);
-            book.setInt(3,NumberOfBooks);
-            book.executeUpdate();
-        }
-        catch (SQLException ex){
-            System.out.println("Something went wrong " + ex.getMessage());
-        }
-
-    }
-
-    public void deleteBookISBN(int isbn){//Ändrade även namnet på denna...
-        int ISBN = isbn;
-
-
-        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/Music?useSSL=false","root","Hanna0811" )){
-            PreparedStatement book = conn.prepareStatement("DELETE FROM books where ISBN = ?");
-            book.setInt(1,ISBN);
-
-            book.executeUpdate();
-        }
-        catch (SQLException ex){
-            System.out.println("Something went wrong " + ex.getMessage());
-        }
-
-
-    }
-
-    public void deleteBookName(String name){//La till denna metoden för att kunna ta bort boken på namn, men kunde inte testa den...
-
-
-        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/Music?useSSL=false","root","Hanna0811" )){
-            PreparedStatement book = conn.prepareStatement("DELETE FROM books where bookname = ?");
-            book.setString(1,name);
-
-            book.executeUpdate();
-        }
-        catch (SQLException ex){
-            System.out.println("Something went wrong " + ex.getMessage());
-        }
-    }
 
     public void showBooks(){
 
@@ -96,7 +34,67 @@ public class LoanManager extends Book {
         }
 
     }
+    public void addBook(Book book){
 
+        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/Music?useSSL=false","root","Hanna0811" )){
+            PreparedStatement thebook = conn.prepareStatement("Insert INTO books Values (?,?,?)");
+            thebook.setInt(1,book.getBookISBN());
+            thebook.setString(2,book.getBookName());
+            thebook.setInt(3,book.getNumOfBooks());
+            thebook.executeUpdate();
+
+        }
+        catch (SQLException ex){
+            System.out.println();
+        }
+    }
+    public void addBook(int isbn, String namn, int numberofbooks){
+
+        int ISBN = isbn;
+        String Namn = namn;
+        int NumberOfBooks = numberofbooks;
+
+        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/Music?useSSL=false","root","Hanna0811" )){
+            PreparedStatement book = conn.prepareStatement("Insert INTO books Values (?,?,?)");
+            book.setInt(1,ISBN);
+            book.setString(2,Namn);
+            book.setInt(3,NumberOfBooks);
+            book.executeUpdate();
+        }
+        catch (SQLException ex){
+            System.out.println("Something went wrong " + ex.getMessage());
+        }
+
+    }
+    public void deleteBookISBN(int isbn){//Ändrade även namnet på denna...
+        int ISBN = isbn;
+
+
+        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/Music?useSSL=false","root","Hanna0811" )){
+            PreparedStatement book = conn.prepareStatement("DELETE FROM books where ISBN = ?");
+            book.setInt(1,ISBN);
+
+            book.executeUpdate();
+        }
+        catch (SQLException ex){
+            System.out.println("Something went wrong " + ex.getMessage());
+        }
+
+
+    }
+    public void deleteBookName(String name){//La till denna metoden för att kunna ta bort boken på namn, men kunde inte testa den...
+
+
+        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/Music?useSSL=false","root","Hanna0811" )){
+            PreparedStatement book = conn.prepareStatement("DELETE FROM books where bookname = ?");
+            book.setString(1,name);
+
+            book.executeUpdate();
+        }
+        catch (SQLException ex){
+            System.out.println("Something went wrong " + ex.getMessage());
+        }
+    }
     public Book getBookName(String name){//La till detta då man tydligen skulle kunna söka efter bokens namn också... Men kunde inte testa den.
         Book newBook = new Book();
 
@@ -125,7 +123,6 @@ public class LoanManager extends Book {
 
         return newBook;
     }
-
     public Book getBookISBN(int isbn){//Bytte namn på denna....
         Book newBook = new Book();
 
@@ -152,4 +149,6 @@ public class LoanManager extends Book {
 
         return newBook;
     }
+
+
 }

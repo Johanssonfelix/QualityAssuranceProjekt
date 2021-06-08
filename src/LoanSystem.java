@@ -4,7 +4,7 @@ import org.apache.logging.log4j.Logger;
 import java.util.Scanner;
 
 public class LoanSystem extends LoanManager {
-    private static Logger logger = LogManager.getLogger(LoanSystem.class.getName());
+    private static Logger logger = LogManager.getLogger(LoanSystem.class);
 
     public static void main(String[] args) {
 
@@ -65,6 +65,8 @@ public class LoanSystem extends LoanManager {
                         System.out.print("===>");
                         boknamn = input.next();
                         lm.deleteBookName(boknamn);
+                        logger.info("Boken: " + boknamn + " har tagits bort" );
+
                     }
                     if (val == 2) { //Söka på ISBN...
                         int isbn;
@@ -72,6 +74,7 @@ public class LoanSystem extends LoanManager {
                         System.out.print("===>");
                         isbn = input.nextInt();
                         lm.deleteBookISBN(isbn);
+                        logger.info("Boken med ISBN: " + isbn + " har tagits bort" );
                     }
                 }
                 if (bokval == 2){
@@ -84,8 +87,8 @@ public class LoanSystem extends LoanManager {
                     int numberofbooks = input.nextInt();
 
                     lm.addBook(isbn,boknamn,numberofbooks);
-
                     System.out.println("Boken är inlaggd");
+                    logger.info(isbn + " " + boknamn + " " + numberofbooks);
                 }
                 if (bokval == 3){
                     System.out.println("1.Vill du registera ett lån");
@@ -95,9 +98,13 @@ public class LoanSystem extends LoanManager {
 
                     if (val1 == 1){
                         System.out.println("Registrera användare och boklån");
+
+                        logger.info("Användaren har lånat boken");
                     }
                     if (val1 == 2){
                         System.out.println("Registrera återlämnning");
+
+                        logger.info("Användaren har återlämnat boken");
                     }
                 }
                 // För Users Låna, Återlämna

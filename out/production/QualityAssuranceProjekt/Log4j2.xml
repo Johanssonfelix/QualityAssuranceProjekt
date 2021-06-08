@@ -2,20 +2,19 @@
 <Configuration monitorInterval="5">
     <Appenders>
         <Console name="Console" target="SYSTEM_OUT">
-            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger - %msg%n" />
+            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger - %m%n" />
         </Console>
 
         <File name="MyFile" fileName="logs/app.log">
             <PatternLayout>
-                <Pattern>%d %p %c{1. } [%t] %m%n</Pattern>
+                <Pattern>%d %p %c [%t] %m%n</Pattern>
             </PatternLayout>
         </File>
 
     </Appenders>
 
     <Loggers>
-        <Root>
-            <AppenderRef ref="Console"/>
+        <Root level="debug">
             <AppenderRef ref="MyFile" />
         </Root>
     </Loggers>
