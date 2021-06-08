@@ -110,8 +110,8 @@ public class LoanManager extends Book {
             // Skapar ett set där statment utför MYSQL queryn
             // Utför settet tills allt har skrivits ut
             while (result.next()) {
-                newBook = new Book(result.getInt(1),result.getString(2));
-                System.out.println(result.getInt(1)+ " " + result.getString(2));
+                newBook = new Book(result.getInt(1),result.getString(2), result.getInt(3));
+                System.out.println(result.getInt(1)+ " " + result.getString(2)+ " " + result.getInt(3));
             }
 
         }
@@ -137,8 +137,8 @@ public class LoanManager extends Book {
             // Skapar ett set där statment utför MYSQL queryn
             // Utför settet tills allt har skrivits ut
             while (result.next()) {
-                newBook = new Book(result.getInt(1),result.getString(2));
-                System.out.println(result.getInt(1)+ ": " + result.getString(2));
+                newBook = new Book(result.getInt(1),result.getString(2), result.getInt(3));
+                System.out.println(result.getInt(1)+ ": " + result.getString(2)+ " " + result.getInt(3));
             }
 
         }
