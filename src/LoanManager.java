@@ -18,17 +18,17 @@ public class LoanManager extends Book {
             System.out.println();
         }
     }
-    public void addBook(int isbn, String namn, String author){
+    public void addBook(int isbn, String namn, int numberofbooks){
 
         int ISBN = isbn;
         String Namn = namn;
-        String Author = author;
+        int NumberOfBooks = numberofbooks;
 
         try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/Music?useSSL=false","root","Hanna0811" )){
             PreparedStatement book = conn.prepareStatement("Insert INTO books Values (?,?,?)");
             book.setInt(1,ISBN);
             book.setString(2,Namn);
-            book.setInt(3,numOfBooks);
+            book.setInt(3,NumberOfBooks);
             book.executeUpdate();
         }
         catch (SQLException ex){
@@ -80,14 +80,16 @@ public class LoanManager extends Book {
 
             // Skapar statement
             Statement statement = conn.createStatement();
-            System.out.println("Böcker\n========\n");
+            System.out.println();
+            System.out.println("Böcker");
+            System.out.println(" ISBN " + "  Bokensnamn" + "\n ----   ---------- \n" );
             ResultSet result = statement.executeQuery("SELECT * FROM books" );
             // Skapar ett set där statment utför MYSQL queryn
             // Utför settet tills allt har skrivits ut
             while (result.next()) {
                 System.out.println((result.getInt(1) + ": " + result.getString(2)));
             }
-
+            System.out.println();
         }
         catch (SQLException ex){
             System.out.println("Something went wrong " + ex.getMessage());
@@ -113,7 +115,7 @@ public class LoanManager extends Book {
             // Utför settet tills allt har skrivits ut
             while (result.next()) {
                 newBook = new Book(result.getInt(1),result.getString(2), result.getInt(3));
-                System.out.println(result.getInt(1)+ " " + result.getString(2)+ " " + result.getInt(3));
+                System.out.println("ISBN: " + result.getInt(1)+ ", Boknamn: " + result.getString(2)+ ", Antal lediga böcker: " + result.getInt(3));
             }
 
         }
@@ -140,7 +142,7 @@ public class LoanManager extends Book {
             // Utför settet tills allt har skrivits ut
             while (result.next()) {
                 newBook = new Book(result.getInt(1),result.getString(2), result.getInt(3));
-                System.out.println(result.getInt(1)+ ": " + result.getString(2)+ " " + result.getInt(3));
+                System.out.println("ISBN: " + result.getInt(1)+ ", Boknamn: " + result.getString(2)+ ", Antal lediga böcker: " + result.getInt(3));
             }
 
         }
