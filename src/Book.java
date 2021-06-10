@@ -1,8 +1,12 @@
+import java.util.Date;
+
 public class Book {
     public int ISBN;
     public String bookName;
-    public User loanUser;
+    public int userID;
     public int numOfBooks;
+    public Date loanDate;
+    public Date returnDate;
 
     public Book() {
     }
@@ -13,6 +17,15 @@ public class Book {
         this.numOfBooks = numOfBooks;
     }
 
+    public Book(int isbn, String bookName, int userID, int numOfBooks, Date loanDate, Date returnDate){
+        this.ISBN = isbn;
+        this.bookName = bookName;
+        this.userID = userID;
+        this.numOfBooks = numOfBooks;
+        this.loanDate = loanDate;
+        this.returnDate = returnDate;
+
+    }
 
     public int getBookISBN() {
         return ISBN;
@@ -30,12 +43,12 @@ public class Book {
         this.bookName = bookName;
     }
 
-    public User getLoanUser() {
-        return loanUser;
+    public int getLoanUser() {
+        return userID;
     }
 
-    public void setLoanUser(User user) {
-        this.loanUser = user;
+    public void setLoanUser(int userID) {
+        this.userID = userID;
     }
 
     public int getNumOfBooks(){
@@ -43,6 +56,22 @@ public class Book {
     }
     public void setNumOfBooks(int numOfBooks){
         this.numOfBooks = numOfBooks;
+    }
+
+    public Date getLoanDate(){
+        return loanDate;
+    }
+
+    public void setLoandate(Date loanDate){
+        this.loanDate = loanDate;
+    }
+
+    public Date getReturnDate(){
+        return returnDate;
+    }
+
+    public void setReturnDate(Date returnDate){
+        this.returnDate = returnDate;
     }
 
 }
