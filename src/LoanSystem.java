@@ -110,9 +110,22 @@ public class LoanSystem extends LoanManager {
                 // För Users Låna, Återlämna
                 // För Libriarian Lägga till, Ta bort
             } else if (option == 4) {
-                System.out.println("Visa alla låntagere");
-                System.out.println("Visa låntagere på specik bok");
-                System.out.println("Visa lånetagares alla böcker");
+                System.out.println("1. Visa alla låntagere");
+                System.out.println("2. Visa låntagere på specik bok");
+                System.out.println("3. Visa lånetagares alla böcker");
+
+                int val = 0;
+                val = input.nextInt();
+
+                if (val==1){
+                    lm.showUsers();
+                }
+                if (val==2){
+
+                }
+                if (val==3){
+
+                }
             } else if (option == 5) {
                 avsluta = true;
                 System.out.println("Ha det bra");
