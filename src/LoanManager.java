@@ -34,6 +34,7 @@ public class LoanManager extends Book {
         }
 
     }
+    /*
     public void addBook(Book book){
 
         try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/Music?useSSL=false","root","Hanna0811" )){
@@ -48,6 +49,8 @@ public class LoanManager extends Book {
             System.out.println();
         }
     }
+    */
+
     public void addBook(int isbn, String namn, int numberofbooks){
 
         int ISBN = isbn;
@@ -149,6 +152,5 @@ public class LoanManager extends Book {
 
         return newBook;
     }
-
 
 }
