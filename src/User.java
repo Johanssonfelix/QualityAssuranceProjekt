@@ -1,17 +1,20 @@
 public class User{
     public int userId;
-    public String forname;
-    public String lastname;
+    public String forName;
+    public String lastName;
     public int userType;
+    public int maxLoans;
+
 
     public User() {
     }
 
-    public User(int userId, String forname, String lastname, int userType) {
+    public User(int userId, String forname, String lastname, int userType, int maxloans) {
         this.userId = userId;
-        this.forname = forname;
-        this.lastname = lastname;
+        this.forName = forname;
+        this.lastName = lastname;
         this.userType = userType;
+        this.maxLoans = maxloans;
     }
 
     public int getUserId() {
@@ -23,25 +26,33 @@ public class User{
     }
 
     public String getForName() {
-        return forname;
+        return forName;
     }
 
     public void setForName(String forname) {
-        this.forname = forname;
+        this.forName = forname;
     }
     public String getLastName() {
-        return lastname;
+        return lastName;
     }
 
     public void setLastName(String lastname) {
-        this.lastname = lastname;
+        this.lastName = lastname;
     }
 
     public int getUserType() {
         return userType;
     }
 
-    public void setUserType(int userType) {
+    public void setMaxLoans(int maxLoans){
+        this.maxLoans = maxLoans;
+    }
+
+    public int getMaxLoans(){
+        return maxLoans;
+    }
+
+    /*public void setUserType(int userType) {
         if (userType == 0 || userType == 1 || userType == 2 || userType == 3 ){
             this.userType = userType;
         }else{
@@ -58,5 +69,15 @@ public class User{
                 User teacher = new User();
             }
         }
+    }*/
+
+    public void maxBooks(int userType){
+        switch (userType){
+            case 1 -> this.setMaxLoans(3);
+            case 2 -> this.setMaxLoans(5);
+            case 3 -> this.setMaxLoans(7);
+            case 4 -> this.setMaxLoans(10);
+        }
+
     }
 }
