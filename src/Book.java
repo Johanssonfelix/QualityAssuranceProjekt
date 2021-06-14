@@ -1,12 +1,12 @@
-import java.util.Date;
+import java.time.LocalDate;
 
 public class Book {
     public int ISBN;
     public String bookName;
     public int userID;
     public int numOfBooks;
-    public Date loanDate;
-    public Date returnDate;
+    public LocalDate loanDate;
+    public LocalDate returnDate;
 
     public Book() {
     }
@@ -18,13 +18,12 @@ public class Book {
         this.numOfBooks = numOfBooks;
     }
 
-    public Book(int isbn, String bookName, int userID, int numOfBooks, Date loanDate, Date returnDate){
+    public Book(int isbn, String bookName, int userID, int numOfBooks, LocalDate loanDate, LocalDate returnDate){
         this.ISBN = isbn;
         this.bookName = bookName;
         this.userID = userID;
         this.numOfBooks = numOfBooks;
-        this.loanDate = loanDate;
-        this.returnDate = returnDate;
+
 
     }
 
@@ -59,20 +58,23 @@ public class Book {
         this.numOfBooks = numOfBooks;
     }
 
-    public Date getLoanDate(){
+    public LocalDate getLoanDate(){
         return loanDate;
     }
 
-    public void setLoandate(Date loanDate){
-        this.loanDate = loanDate;
+    public void setLoandate(){
+       this.loanDate = loanDate.now();
+        setReturnDate(loanDate);
     }
 
-    public Date getReturnDate(){
+    public LocalDate getReturnDate(){
         return returnDate;
     }
 
-    public void setReturnDate(Date returnDate){
+    public void setReturnDate(LocalDate loanDate){
+    returnDate = loanDate.now().plusDays(14);
         this.returnDate = returnDate;
+
     }
 
 }

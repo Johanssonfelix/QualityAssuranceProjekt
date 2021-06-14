@@ -2,18 +2,19 @@ public class User{
     public int userId;
     public String forName;
     public String lastName;
-    public int userType;
+    private int userType;
+    public String usertypeDescription;
     public int maxLoans;
-    public int personalNumber;
+    public int currentnumberofloans;
+    // Fixa efter låna bok fungerar.
 
 
-    public User(int userId, String forname, String lastname, int userType, int maxloans, int personalNumber) {
-        this.userId = userId;
+    public User( String forname, String lastname, int userType) {
+        this.userId = getUserId();
         this.forName = forname;
         this.lastName = lastname;
         this.userType = userType;
-        this.maxLoans = maxloans;
-        this.personalNumber = personalNumber;
+
     }
 
     public int getUserId() {
@@ -21,7 +22,11 @@ public class User{
     }
 
     public void setUserId(int userId) {
-        this.userId = userId ;
+        if (userId == 4){
+            this.userId = userId;
+        } else {
+            System.out.println("The userId must be 4 digits long.");
+        }
         
     }
 
@@ -44,8 +49,16 @@ public class User{
         return userType;
     }
 
-    public void setMaxLoans(int maxLoans){
-        this.maxLoans = maxLoans;
+    public void setMaxLoans(){
+        if (userType == 0){
+           this.maxLoans = 3;
+        } else if (userType == 1){
+            this.maxLoans = 5;
+        } else if (userType == 2){
+            this.maxLoans = 7;
+        } else if (userType == 3){
+            this.maxLoans = 10;
+        }
     }
 
     public int getMaxLoans(){
@@ -53,30 +66,35 @@ public class User{
     }
 
     public void setUserType(int userType) {
-        if (userType == 0 || userType == 1 || userType == 2 || userType == 3 ){
+        if (userType == 0){
+            usertypeDescription = "Student";
             this.userType = userType;
-        }else{
-            System.out.println("Usertype must have an int from 0-3");
+        } else if (userType == 1){
+            usertypeDescription = "Master";
+            this.userType = userType;
+        } else if (userType == 2){
+            usertypeDescription = "PhD";
+            this.userType = userType;
+        } else if (userType == 3){
+            usertypeDescription = "Lärare";
+            this.userType = userType;
+        }
+        else{
+            System.out.println("Usertype must have an int from 0-3, the number should have the right description depending on wheter he is a student, or a teacher");
         }
         
     }
-
+/*
     public void maxBooks(int userType){
         switch (userType){
             case 1 -> this.setMaxLoans(3);
             case 2 -> this.setMaxLoans(5);
             case 3 -> this.setMaxLoans(7);
             case 4 -> this.setMaxLoans(10);
-            default -> System.out.println("Något fick fel");
         }
 
     }
-    
-    public void setPersonalNumber(int personalNumber) {
-        this.personalNumber = personalNumber;
-    }
-    
-    public int getPersonalNumber() {
-        return personalNumber;
-    }
+
+ */
+
 }

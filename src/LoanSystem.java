@@ -12,9 +12,9 @@ public class LoanSystem extends LoanManager {
 
 
         int option = 0;
-        boolean avsluta = false;
+        boolean end = false;
         LoanManager lm = new LoanManager();
-        while (!avsluta) {
+        while (!end) {
             System.out.println("Biblioteksmeny\n=======");
             System.out.println("1.Visa inlagda böcker");
             System.out.println("2.Söka efter bok");
@@ -127,7 +127,7 @@ public class LoanSystem extends LoanManager {
 
                 }
             } else if (option == 5) {
-                avsluta = true;
+                end = true;
                 System.out.println("Ha det bra");
             }
         }
