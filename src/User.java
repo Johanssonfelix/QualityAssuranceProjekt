@@ -21,11 +21,7 @@ public class User{
     }
 
     public void setUserId(int userId) {
-        if (userId.length() == 4){
-            this.userId = userId;
-        } else {
-            System.out.println("The userId must be 4 digits long.");
-        }
+        this.userId = userId ;
         
     }
 
@@ -71,6 +67,7 @@ public class User{
             case 2 -> this.setMaxLoans(5);
             case 3 -> this.setMaxLoans(7);
             case 4 -> this.setMaxLoans(10);
+            default -> System.out.println("Något fick fel");
         }
 
     }
