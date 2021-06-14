@@ -7,6 +7,19 @@ public class BookManager {
     public BookManager(LoanManager loanManager, User user) {
         this.loanManager = loanManager;
         this.user = user;
-        //books = hämta användarna, från den klassen...
+        //books = getUserloans();
     }
+
+    public boolean checkAvaibilty(Book book){
+        if (book.getNumOfBooks() == 0){
+            return false;
+        }
+        else
+            return book.getNumOfBooks() > 0;
+    }
+
+    /*public Book[] getUserloans(){
+        return loanManager.getLoanUser();
+
+    }*/
 }

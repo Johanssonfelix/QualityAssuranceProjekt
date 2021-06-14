@@ -195,5 +195,54 @@ public class LoanManager extends Book {
         return newBook;
     }
 
+    public void loanBook(){
+        Book newbook = new Book();
+        User user = new User();
+        int availableBooks = 0;
+
+        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/Music?useSSL=false","root","Hanna0811" )){
+            String sql = "SELECT antal FROM book where isbn=?";//Kom inte ihåg om vi la antalet i book eller i en kopplingstabell
+            PreparedStatement newloan = conn.prepareStatement(sql);
+            newloan.setInt(1, newbook.getBookISBN());
+            ResultSet resultSet = newloan.executeQuery();
+
+            while (resultSet.next()){
+                availableBooks = resultSet.getInt(1);
+            }
+        } catch (SQLException ex) {
+            System.out.println("Something went wrong " + ex.getMessage());
+        }
+        if (availableBooks > 0){
+            try {
+                long millis = System.currentTimeMillis();
+                Date currentdate = new Date(millis);
+                Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/Music?useSSL=false","root","Hanna0811");
+
+                PreparedStatement nps = conn.prepareStatement("UPDATE book set copies = copies - 1 WHERE isbn=?");//Kom inte ihåg strukturen
+                PreparedStatement newNPS = conn.prepareStatement("INSERT INTO ? ()");//Kom inte ihåg strukturen
+
+
+                newNPS.executeUpdate();
+                nps.executeUpdate();
+                newbook.setLoanUser(user.getUserId());
+                System.out.println(newbook.getBookName() + " har nu lånats");
+                System.out.println("Tillgängligt antal kvar: " + (availableBooks - 1) );
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+                System.out.println("Något gick fel");
+            }
+        }else{
+            System.out.println("Inga tillgängliga böcker");
+        }
+    }
+
+    public void returnBook(){
+        Book newbook = new Book();
+        User user = new User();
+
+    }
+
+
+
 
 }
