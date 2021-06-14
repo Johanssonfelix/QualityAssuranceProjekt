@@ -5,7 +5,8 @@ public class User{
     private int userType;
     public String usertypeDescription;
     public int maxLoans;
-
+    public int currentnumberofloans;
+    // Fixa efter låna bok fungerar.
 
 
     public User( String forname, String lastname, int userType) {
