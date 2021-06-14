@@ -2,7 +2,7 @@ public class User{
     public int userId;
     public String forName;
     public String lastName;
-    private int userType;
+    public int userType;
     public String usertypeDescription;
     public int maxLoans;
     public int currentnumberofloans;
@@ -10,10 +10,14 @@ public class User{
 
 
     public User( String forname, String lastname, int userType) {
-        this.userId = getUserId();
+        this.userId = generateUserID.generateUserId();
         this.forName = forname;
         this.lastName = lastname;
         this.userType = userType;
+
+        this.UsertypeDescription();
+        this.setMaxLoans(userType);
+
 
     }
 
@@ -49,7 +53,7 @@ public class User{
         return userType;
     }
 
-    public void setMaxLoans(){
+    public void setMaxLoans(int userType){
         if (userType == 0){
            this.maxLoans = 3;
         } else if (userType == 1){
@@ -66,24 +70,32 @@ public class User{
     }
 
     public void setUserType(int userType) {
-        if (userType == 0){
-            usertypeDescription = "Student";
+        if (userType == 0 || userType == 1 || userType == 2 || userType == 3 ){
             this.userType = userType;
-        } else if (userType == 1){
-            usertypeDescription = "Master";
-            this.userType = userType;
-        } else if (userType == 2){
-            usertypeDescription = "PhD";
-            this.userType = userType;
-        } else if (userType == 3){
-            usertypeDescription = "Lärare";
-            this.userType = userType;
+        }else{
+            System.out.println("Usertype must have an int from 0-3");
         }
-        else{
-            System.out.println("Usertype must have an int from 0-3, the number should have the right description depending on wheter he is a student, or a teacher");
-        }
-        
+
     }
+
+    public void UsertypeDescription(){
+        if (userType == 0){
+            this.usertypeDescription = "Student";
+
+        } else if (userType == 1){
+            this.usertypeDescription = "Master";
+
+        } else if (userType == 2){
+            this.usertypeDescription = "PhD";
+
+        } else if (userType == 3){
+            this.usertypeDescription = "Lärare";
+
+        }
+    }
+
+
+
 /*
     public void maxBooks(int userType){
         switch (userType){
