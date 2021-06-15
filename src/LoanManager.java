@@ -61,11 +61,12 @@ public class LoanManager extends Book {
 
         }
 
-    public void addBook(int isbn, String namn, int numberofbooks){
+    public boolean addBook(int isbn, String namn, int numberofbooks){
 
         int ISBN = isbn;
         String Namn = namn;
         int NumberOfBooks = numberofbooks;
+        boolean bookadded = false;
 
         try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/Music?useSSL=false","root","Hanna0811" )){
             PreparedStatement book = conn.prepareStatement("Insert INTO books Values (?,?,?)");
@@ -73,10 +74,12 @@ public class LoanManager extends Book {
             book.setString(2,Namn);
             book.setInt(3,NumberOfBooks);
             book.executeUpdate();
+            bookadded = true;
         }
         catch (SQLException ex){
             System.out.println("Something went wrong " + ex.getMessage());
         }
+        return bookadded;
 
     }
     public void addUser( String forname, String lastname, int usertype){
@@ -222,13 +225,12 @@ public class LoanManager extends Book {
         return newUser;
     }
 
-    public void loanBook(int isbn){
-        Book newbook = new Book();
-        User user = new User();
+    public void loanBook(Book newbook, User user){
         int availableBooks = 0;
+        int isbn = 0;
 
         try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/Music?useSSL=false","root","Hanna0811" )){
-            String sql = "SELECT numberofbooks FROM book WHERE ISBN=" + isbn;//Kom inte ihåg om vi la antalet i book eller i en kopplingstabell
+            String sql = "SELECT numberofbooks FROM book WHERE ISBN= + isbn";//Kom inte ihåg om vi la antalet i book eller i en kopplingstabell
             PreparedStatement newloan = conn.prepareStatement(sql);
             newloan.setInt(1, newbook.getBookISBN());
             ResultSet resultSet = newloan.executeQuery();
@@ -244,7 +246,7 @@ public class LoanManager extends Book {
         if (availableBooks > 0){
             try {Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/Music?useSSL=false","root","Hanna0811");
 
-                PreparedStatement nps = conn.prepareStatement("UPDATE book set numberofbooks = numberofbooks - 1 WHERE isbn=" + isbn);//Kom inte ihåg strukturen
+                PreparedStatement nps = conn.prepareStatement("UPDATE book set numberofbooks = numberofbooks - 1 WHERE isbn= + isbn");//Kom inte ihåg strukturen
                 nps.executeUpdate();
 
                 PreparedStatement newNPS = conn.prepareStatement("INSERT INTO bookuser VALUES (?,?,?)");//Kom inte ihåg strukturen

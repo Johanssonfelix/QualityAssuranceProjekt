@@ -9,10 +9,14 @@ public class BookHandler {
     public BookHandler(LoanManager loanManager, User user) {
         this.loanManager = loanManager;
         this.user = user;
-        //books = getUserloans();
     }
 
-    public Book loan(int isbn){
+    public boolean addBook(int isbn, String bookName, int numOfBooks){
+        return loanManager.addBook(isbn, bookName, numOfBooks);
+
+    }
+
+    public Book loanBook(int isbn){
         Book tBook = loanManager.getBookISBN(isbn);
 
         if (tBook == null){
@@ -25,6 +29,10 @@ public class BookHandler {
         return tBook;
     }
 
+    /*public Book returnBook(int isbn){
+        Book tBook = loanManager.getBookISBN(isbn);
+    }*///Kommer behöva kolla lite på kopplingstabellen
+
     public boolean checkAvaibilty(Book book){
         if (book.getNumOfBooks() == 0){
             return false;
@@ -32,6 +40,9 @@ public class BookHandler {
         else
             return book.getNumOfBooks() > 0;
     }
+
+
+
 
     /*public Book[] getUserloans(){
         return loanManager.getLoanUser();
