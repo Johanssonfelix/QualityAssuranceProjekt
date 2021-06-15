@@ -8,6 +8,10 @@ public class User{
     public int currentnumberofloans;
     // Fixa efter låna bok fungerar.
 
+    public User(){
+
+    }
+
 
     public User( String forname, String lastname, int userType) {
         this.userId = generateUserID.generateUserId();
