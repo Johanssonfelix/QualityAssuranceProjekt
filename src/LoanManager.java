@@ -240,6 +240,20 @@ public class LoanManager extends Book {
         Book newbook = new Book();
         User user = new User();
 
+        try {
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/Music?useSSL=false","root","Hanna0811");
+            PreparedStatement nps = conn.prepareStatement("UPDATE book SET antal = antal + 1 WHERE isbn=?");
+            PreparedStatement nnps = conn.prepareStatement("DELETE from (LÅnadav, Kopplingstabellen?) where isbn = ? and (lånad av person? = ?)");
+
+            nnps.setInt(1, newbook.getBookISBN());
+            nnps.setInt(2, user.getUserId());
+            nps.setInt(1, newbook.getBookISBN());
+
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
     }
 
 
