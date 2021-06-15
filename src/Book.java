@@ -23,8 +23,6 @@ public class Book {
         this.bookName = bookName;
         this.userID = userID;
         this.numOfBooks = numOfBooks;
-
-
     }
 
     public int getBookISBN() {
