@@ -12,13 +12,18 @@ public class BookHandler {
         //books = getUserloans();
     }
 
-    /*public Book loan(int isbn){
+    public Book loan(int isbn){
         Book tBook = loanManager.getBookISBN(isbn);
 
         if (tBook == null){
             throw new NoSuchElementException("ISBN Saknas");
+        }else if (!checkAvaibilty(tBook)){
+            throw new  NullPointerException("Inga tillgängliga böcker");
+        }else{
+            loanManager.loanBook(tBook,user);
         }
-    }*/
+        return tBook;
+    }
 
     public boolean checkAvaibilty(Book book){
         if (book.getNumOfBooks() == 0){

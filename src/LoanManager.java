@@ -222,15 +222,14 @@ public class LoanManager extends Book {
         return newUser;
     }
 
-    public void loanBook(int isbn){
-        Book newbook = new Book();
-        User user = new User();
+    public void loanBook(Book newbook, User user){
         int availableBooks = 0;
 
         try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/Music?useSSL=false","root","Hanna0811" )){
-            String sql = "SELECT numberofbooks FROM book WHERE ISBN=" + isbn;//Kom inte ihåg om vi la antalet i book eller i en kopplingstabell
+            String sql = "SELECT numberofbooks FROM book WHERE ISBN= + isbn";//Kom inte ihåg om vi la antalet i book eller i en kopplingstabell
+
             PreparedStatement newloan = conn.prepareStatement(sql);
-            newloan.setInt(1, newbook.getBookISBN());
+            newloan.setInt(1,newbook.getBookISBN());//Kanske kolla tabellen...
             ResultSet resultSet = newloan.executeQuery();
 
             while (resultSet.next()){
@@ -245,7 +244,7 @@ public class LoanManager extends Book {
 
                 Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/Music?useSSL=false","root","Hanna0811");
 
-                PreparedStatement nps = conn.prepareStatement("UPDATE book set numberofbooks = numberofbooks - 1 WHERE isbn=" + isbn);//Kom inte ihåg strukturen
+                PreparedStatement nps = conn.prepareStatement("UPDATE book set numberofbooks = numberofbooks - 1 WHERE isbn= + isbn");//Kom inte ihåg strukturen
                 PreparedStatement newNPS = conn.prepareStatement("INSERT INTO ? ()");//Kom inte ihåg strukturen
 
 
@@ -303,8 +302,5 @@ public class LoanManager extends Book {
         Book[] books = new Book[tList.size()];
         return tList.toArray(books);
     }
-
-
-
 
 }
