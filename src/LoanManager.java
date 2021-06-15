@@ -238,18 +238,21 @@ public class LoanManager extends Book {
         } catch (SQLException ex) {
             System.out.println("Something went wrong " + ex.getMessage());
         }
+
+
         if (availableBooks > 0){
-            try {
-
-
-                Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/Music?useSSL=false","root","Hanna0811");
+            try {Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/Music?useSSL=false","root","Hanna0811");
 
                 PreparedStatement nps = conn.prepareStatement("UPDATE book set numberofbooks = numberofbooks - 1 WHERE isbn=" + isbn);//Kom inte ihåg strukturen
-                PreparedStatement newNPS = conn.prepareStatement("INSERT INTO ? ()");//Kom inte ihåg strukturen
+                nps.executeUpdate();
 
+                PreparedStatement newNPS = conn.prepareStatement("INSERT INTO bookuser VALUES (?,?,?)");//Kom inte ihåg strukturen
+                newNPS.setInt(1,isbn);
+                newNPS.setString(2, newbook.bookName);
+                newNPS.setInt(3,user.getUserId());
 
                 newNPS.executeUpdate();
-                nps.executeUpdate();
+
                 newbook.setLoanUser(user.getUserId());
                 System.out.println(newbook.getBookName() + " har nu lånats");
                 System.out.println("Tillgängligt antal kvar: " + (availableBooks - 1) );
