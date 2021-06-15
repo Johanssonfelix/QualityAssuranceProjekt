@@ -12,6 +12,14 @@ public class Book {
     }
 
 
+    public Book(int isbn, int userID) {
+        this.ISBN = isbn;
+        this.userID = userID;
+    }
+
+
+
+
     public Book(int isbn, String bookName, int numOfBooks) {
         this.ISBN = isbn;
         this.bookName = bookName;

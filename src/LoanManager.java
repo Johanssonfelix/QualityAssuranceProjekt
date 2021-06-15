@@ -1,4 +1,5 @@
 import java.sql.*;
+import java.util.ArrayList;
 
 
 public class LoanManager extends Book {
@@ -280,6 +281,27 @@ public class LoanManager extends Book {
             System.out.println(e.getMessage());
         }
 
+    }
+
+    public Book[] checkAvailableBooks(int isbn){
+        ArrayList<Book> tList = new ArrayList<>();
+        try {
+            String sql = "Select isbn, (lånadav?) from (kopplingstabell) Where isbn = ?";
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/Music?useSSL=false","root","Hanna0811");
+            PreparedStatement preparedStatement = conn.prepareStatement(sql);
+
+            preparedStatement.setInt(1, isbn);
+            ResultSet rs = preparedStatement.executeQuery();
+
+            while (rs.next()){
+                tList.add(new Book(rs.getInt(1), rs.getInt(2)));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        Book[] books = new Book[tList.size()];
+        return tList.toArray(books);
     }
 
 

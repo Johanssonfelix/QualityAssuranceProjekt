@@ -1,3 +1,5 @@
+import java.util.NoSuchElementException;
+
 public class BookHandler {
 
     LoanManager loanManager;
@@ -9,6 +11,14 @@ public class BookHandler {
         this.user = user;
         //books = getUserloans();
     }
+
+    /*public Book loan(int isbn){
+        Book tBook = loanManager.getBookISBN(isbn);
+
+        if (tBook == null){
+            throw new NoSuchElementException("ISBN Saknas");
+        }
+    }*/
 
     public boolean checkAvaibilty(Book book){
         if (book.getNumOfBooks() == 0){
