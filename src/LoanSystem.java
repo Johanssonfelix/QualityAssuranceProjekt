@@ -194,7 +194,39 @@ public class LoanSystem extends LoanManager {
 
                     }
                     else if (option==2){
+                        System.out.println("1.- Vill du låna");
+                        System.out.println("2.- Vill du återlämna?");
+                        System.out.println("3.- Sök efter bok");
+                        System.out.println("4.- Visa alla böcker");
+                        option = input.nextInt();
 
+                        if (option==1){
+                            System.out.println("Vilken bok vill du låna?");
+                            String boknamn = input.next();
+
+                        }
+                        else if (option==2){
+                            System.out.println("Vilken bok vill du lämna tillbaka?");
+                            // Return book
+                        }
+                        else if (option==3){
+                            System.out.println("Vilken bok vill du söka efter?");
+                            System.out.println("Vill du söka efter namn eller isbn?");
+                            System.out.println("1.- Namn");
+                            System.out.println("2.- ISBN");
+
+                            option = input.nextInt();
+                            if (option==1){
+                                System.out.println("Skriv in bokens namn:");
+                                String boknamn = input.next();
+                                lm.getBookName(boknamn);
+                            }
+                            else if (option==2){
+                                System.out.println("Skriv in bokens isbn");
+                                int isbn = input.nextInt();
+                                lm.getBookISBN(isbn);
+                            }
+                        }
                     }
                     else if (option==3){
                         System.out.println("Vill du radera ditt konto?");
