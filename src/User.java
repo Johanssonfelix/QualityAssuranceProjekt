@@ -8,16 +8,18 @@ public class User {
     public String usertypeDescription;
     public int maxLoans;
     public int currentnumberofloans;
+    public String password;
     // Fixa efter låna bok fungerar.
 
     public User() {
     }
 
-    public User(String forname, String lastname, int userType) {
+    public User(String forname, String lastname, int userType, String password) {
         this.userId = setUserId();
         this.forName = forname;
         this.lastName = lastname;
         this.userType = userType;
+        this.password = password;
 
         this.UsertypeDescription();
         this.setMaxLoans(userType);
@@ -95,6 +97,15 @@ public class User {
         } else if (userType == 3) {
             this.usertypeDescription = "Lärare";
 
+        }
+    }
+
+    public String getPassword(){return password;}
+    public void setPassword(String password){
+        if (password.length() <= 3){
+            System.out.println("Lösenord är för kort, måste vara minst 4 bokstäver");
+        } else {
+            this.password = password;
         }
     }
 }

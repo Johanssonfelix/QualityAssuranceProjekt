@@ -31,7 +31,8 @@ public class BookHandler {
 
     /*public Book returnBook(int isbn){
         Book tBook = loanManager.getBookISBN(isbn);
-    }*///Kommer behöva kolla lite på kopplingstabellen
+    }*/
+    //Kommer behöva kolla lite på kopplingstabellen
 
     public boolean checkAvaibilty(Book book){
         if (book.getNumOfBooks() == 0){
