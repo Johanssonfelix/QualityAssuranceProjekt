@@ -145,7 +145,7 @@ public class LoanSystem extends LoanManager {
             System.out.println("För att logga in, tryck 1");
             System.out.println("För att vara oinloggad eller skapa inlogg tryck 2 ");
             option = input.nextInt();
-            if (option == 1){
+            if (option == 1) {
                 LoanManager manager = new LoanManager();
                 User user = new User();
 
@@ -156,11 +156,11 @@ public class LoanSystem extends LoanManager {
                 String lastname = input.next();
                 System.out.println("Lösenord");
                 String password = input.next();
-                user = manager.getUser(forname,lastname,password);
+                user = manager.getUser(forname, lastname, password);
                 System.out.println();
                 System.out.println("Välkommen!");
 
-                if (user.getUserType() == 1){
+                if (user.getUserType() == 1) {
                     System.out.println("Du är inloggad som " + user.usertypeDescription);
                     System.out.println("Vad vill du göra?");
                     System.out.println("1.- Administrera \n" +
@@ -168,12 +168,12 @@ public class LoanSystem extends LoanManager {
                             "3.- Mitt Konto");
                     option = input.nextInt();
 
-                    if (option==1){
+                    if (option == 1) {
                         System.out.println("Vill du lägga till böcker eller ta bort?");
                         System.out.println("1.- Lägga till\n" +
-                        "2.- Ta bort");
+                                "2.- Ta bort");
                         option = input.nextInt();
-                        if (option==1){
+                        if (option == 1) {
                             System.out.println("Skriv in: \n" +
                                     "Namn: ");
                             String boknamn = input.next();
@@ -181,9 +181,9 @@ public class LoanSystem extends LoanManager {
                             int isbn = input.nextInt();
                             System.out.println("Hur många antal böcker är inköpta");
                             int antal = input.nextInt();
-                            lm.addBook(isbn,boknamn,antal);
-                            logger.info(user.getUserId() + " har lagt till " + antal + " exemplar av " + boknamn + "[" +isbn+"]");
-                        } else if (option==2){
+                            lm.addBook(isbn, boknamn, antal);
+                            logger.info(user.getUserId() + " har lagt till " + antal + " exemplar av " + boknamn + "[" + isbn + "]");
+                        } else if (option == 2) {
                             System.out.println("Skriv in ISBN");
                             int isbn = input.nextInt();
                             Book newBook = lm.getBookISBN(isbn);
@@ -192,43 +192,38 @@ public class LoanSystem extends LoanManager {
                             logger.info(user.getUserId() + " har raderat " + bookname + "[" + isbn + "]");
                         }
 
-                    }
-                    else if (option==2){
+                    } else if (option == 2) {
                         System.out.println("1.- Vill du låna");
                         System.out.println("2.- Vill du återlämna?");
                         System.out.println("3.- Sök efter bok");
                         System.out.println("4.- Visa alla böcker");
                         option = input.nextInt();
 
-                        if (option==1){
+                        if (option == 1) {
                             System.out.println("Vilken bok vill du låna?");
                             String boknamn = input.next();
 
-                        }
-                        else if (option==2){
+                        } else if (option == 2) {
                             System.out.println("Vilken bok vill du lämna tillbaka?");
                             // Return book
-                        }
-                        else if (option==3){
+                        } else if (option == 3) {
                             System.out.println("Vilken bok vill du söka efter?");
                             System.out.println("Vill du söka efter namn eller isbn?");
                             System.out.println("1.- Namn");
                             System.out.println("2.- ISBN");
 
                             option = input.nextInt();
-                            if (option==1){
+                            if (option == 1) {
                                 System.out.println("Skriv in bokens namn:");
                                 String boknamn = input.next();
                                 lm.getBookName(boknamn);
-                            }
-                            else if (option==2){
+                            } else if (option == 2) {
                                 System.out.println("Skriv in bokens isbn");
                                 int isbn = input.nextInt();
                                 lm.getBookISBN(isbn);
                             }
                         }
-                    }
-                    else if (option==3){
+                    } else if (option == 3) {
                         System.out.println("Vill du radera ditt konto?");
                         System.out.println("Förnamn");
                         String förnamn = input.next();
@@ -241,42 +236,73 @@ public class LoanSystem extends LoanManager {
                         System.out.println("Lösenord");
                         password = input.next();
 
-                        lm.deleteUser(userid,förnamn,efternamn,usertype,password);
-                        logger.info( forname + " " + lastname + " har raderats");
-                        end=true;
+                        lm.deleteUser(userid, förnamn, efternamn, usertype, password);
+                        logger.info(forname + " " + lastname + " har raderats");
+                        end = true;
+                    } else {
+                        System.out.println("Felhanteringen är inte optimal, ber om ursäkt för det.");
+                    }
+                } else if (user.getUserType() == 2 || user.getUserType() == 3 || user.getUserType() == 4 || user.getUserType() == 5) {
+                    System.out.println("Du är inloggad som " + user.usertypeDescription);
+                    System.out.println("Vad vill du göra?");
+                    System.out.println("1.- Lån & Återlämning \n" +
+                            "2.- Mitt Konto");
+                    option = input.nextInt();
+                    if (option==1){
+                        System.out.println("1.- Vill du låna");
+                        System.out.println("2.- Vill du återlämna?");
+                        System.out.println("3.- Sök efter bok");
+                        System.out.println("4.- Visa alla böcker");
+                        option = input.nextInt();
+
+                        if (option == 1) {
+                            System.out.println("Vilken bok vill du låna?");
+                            String boknamn = input.next();
+
+                        } else if (option == 2) {
+                            System.out.println("Vilken bok vill du lämna tillbaka?");
+                            // Return book
+                        } else if (option == 3) {
+                            System.out.println("Vilken bok vill du söka efter?");
+                            System.out.println("Vill du söka efter namn eller isbn?");
+                            System.out.println("1.- Namn");
+                            System.out.println("2.- ISBN");
+
+                            option = input.nextInt();
+                            if (option == 1) {
+                                System.out.println("Skriv in bokens namn:");
+                                String boknamn = input.next();
+                                lm.getBookName(boknamn);
+                            } else if (option == 2) {
+                                System.out.println("Skriv in bokens isbn");
+                                int isbn = input.nextInt();
+                                lm.getBookISBN(isbn);
+                            }
+                        }
+                    } else if (option == 2) {
+                        System.out.println("Vill du radera ditt konto?");
+                        System.out.println("Förnamn");
+                        String förnamn = input.next();
+                        System.out.println("Efternamn");
+                        String efternamn = input.next();
+                        System.out.println("UserId");
+                        int userid = input.nextInt();
+                        System.out.println("Usertype");
+                        int usertype = input.nextInt();
+                        System.out.println("Lösenord");
+                        password = input.next();
+
+                        lm.deleteUser(userid, förnamn, efternamn, usertype, password);
+                        logger.info(forname + " " + lastname + " har raderats");
+                        end = true;
                     }
                     else {
                         System.out.println("Felhanteringen är inte optimal, ber om ursäkt för det.");
                     }
                 }
-                else if (user.getUserType() == 2){
-                    System.out.println("Du är inloggad som " + user.usertypeDescription);
-                    System.out.println("Vad vill du göra?");
-                    System.out.println("1.- Lån & Återlämning \n" +
-                            "2.- Mitt Konto");
 
-                }else if (user.getUserType() == 3){
-                    System.out.println("Du är inloggad som " + user.usertypeDescription);
-                    System.out.println("Vad vill du göra?");
-                    System.out.println(
-                            "1.- Lån & Återlämning \n" +
-                            "2.- Mitt Konto");
 
-                }else if (user.getUserType() == 4){
-                    System.out.println("Du är inloggad som " + user.usertypeDescription);
-                    System.out.println("Vad vill du göra?");
-                    System.out.println(
-                            "1.- Lån & Återlämning \n" +
-                            "2.- Mitt Konto");
 
-                }else if (user.getUserType() == 5){
-                System.out.println("Du är inloggad som " + user.usertypeDescription);
-                System.out.println("Vad vill du göra?");
-                System.out.println(
-                            "1.- Lån & Återlämning \n" +
-                            "2.- Mitt Konto");
-
-                }
             }
             else if (option == 2){
                 lm.showUsers();
