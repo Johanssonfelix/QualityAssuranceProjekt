@@ -251,10 +251,9 @@ public class LoanManager extends Book {
 
     public void loanBook(Book newbook, User user){
         int availableBooks = 0;
-        int isbn = 0;
 
         try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/Music?useSSL=false","root","Hanna0811" )){
-            String sql = "SELECT numberofbooks FROM books WHERE ISBN=" + isbn;//Kom inte ihåg om vi la antalet i book eller i en kopplingstabell
+            String sql = "SELECT numberofbooks FROM books WHERE ISBN=";//Kom inte ihåg om vi la antalet i book eller i en kopplingstabell
             PreparedStatement newloan = conn.prepareStatement(sql);
             newloan.setInt(3, newbook.getNumOfBooks() - 1);
             ResultSet resultSet = newloan.executeQuery();
@@ -274,7 +273,7 @@ public class LoanManager extends Book {
                 nps.executeUpdate();
 
                 PreparedStatement newNPS = conn.prepareStatement("INSERT INTO bookuser VALUES (?,?,?)");//Kom inte ihåg strukturen
-                newNPS.setInt(1,isbn);
+                newNPS.setInt(1, newbook.getBookISBN());
                 newNPS.setString(2, newbook.bookName);
                 newNPS.setInt(3,user.getUserId());
 
