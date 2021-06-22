@@ -246,16 +246,19 @@ public class LoanManager extends Book {
           System.out.println("Något blev fel");
           System.out.println(exception.getMessage());
       }
+
       return newUser;
     }
 
-    public void loanBook(Book newbook, User user){
+    public void loanBook(Book book, User user) {
+
+        /*
         int availableBooks = 0;
 
         try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/Music?useSSL=false","root","Hanna0811" )){
             String sql = "SELECT numberofbooks FROM books WHERE ISBN=";//Kom inte ihåg om vi la antalet i book eller i en kopplingstabell
             PreparedStatement newloan = conn.prepareStatement(sql);
-            newloan.setInt(3, newbook.getNumOfBooks() - 1);
+            newloan.setInt(3, book.getNumOfBooks() - 1);
             ResultSet resultSet = newloan.executeQuery();
 
             while (resultSet.next()){
@@ -274,13 +277,13 @@ public class LoanManager extends Book {
 
                 PreparedStatement newNPS = conn.prepareStatement("INSERT INTO bookuser VALUES (?,?,?)");//Kom inte ihåg strukturen
                 newNPS.setInt(1, newbook.getBookISBN());
-                newNPS.setString(2, newbook.bookName);
+                newNPS.setString(2, book.bookName);
                 newNPS.setInt(3,user.getUserId());
 
                 newNPS.executeUpdate();
 
-                newbook.setLoanUser(user.getUserId());
-                System.out.println(newbook.getBookName() + " har nu lånats");
+                book.setLoanUser(user.getUserId());
+                System.out.println(book.getBookName() + " har nu lånats");
                 System.out.println("Tillgängligt antal kvar: " + (availableBooks - 1) );
             } catch (SQLException ex) {
                 System.out.println(ex.getMessage());
@@ -288,6 +291,48 @@ public class LoanManager extends Book {
             }
         }else{
             System.out.println("Inga tillgängliga böcker");
+        }
+
+         */
+        int availableBooks = 0;
+
+        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/Music?useSSL=false", "root", "Hanna0811")) {
+            String sql = "SELECT numberofbooks FROM books WHERE ISBN=" + book.getBookISBN();
+            //Kom inte ihåg om vi la antalet i book eller i en kopplingstabell
+            // Tar detta från books istället för kopplingstabellen
+
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setInt(3, book.getNumOfBooks() - 1);
+            statement.executeQuery();
+
+
+        } catch (SQLException ex) {
+            System.out.println("Something went wrong " + ex.getMessage());
+        }
+
+        if (book.getNumOfBooks() >= 1) {
+
+            try {
+                Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/Music?useSSL=false", "root", "Hanna0811");
+
+                String sql = "Insert Into bookuser VALUES (?,?,?,?,?)";
+                PreparedStatement loan = conn.prepareStatement(sql);
+                loan.setInt(1, book.getBookISBN());
+                loan.setString(2, book.getBookName());
+                loan.setInt(3, user.getUserId());
+                loan.setDate(4, Date.valueOf(book.getLoanDate()));
+                loan.setDate(5, Date.valueOf(book.getReturnDate()));
+
+                loan.executeUpdate();
+
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+                System.out.println("Något gick fel");
+            }
+        }
+        else if (book.getNumOfBooks() == 0){
+            System.out.println("Ledsen, denna bok är inte tillgägnlig för att lån idag. Den");
+            System.out.print(book.getReturnDate() + " ska boken vara lämnad åter.");
         }
     }
 

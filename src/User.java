@@ -38,6 +38,7 @@ public class User {
             int randomNumber = randomID.nextInt(10);
             stringBuilder.append(randomNumber);
         }
+
         return Integer.parseInt(stringBuilder.toString());
 
     }
