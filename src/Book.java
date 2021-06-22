@@ -69,17 +69,18 @@ public class Book {
     }
 
     public void setLoandate(){
-       this.loanDate = loanDate.now();
-        setReturnDate(loanDate);
+       this.loanDate = LocalDate.now();
+
     }
 
     public LocalDate getReturnDate(){
         return returnDate;
     }
 
-    public void setReturnDate(LocalDate loanDate){
-    returnDate = loanDate.now().plusDays(14);
-        this.returnDate = returnDate;
+    public void setReturnDate() {
+    returnDate = LocalDate.now().plusDays(14);
+
+
 
     }
 

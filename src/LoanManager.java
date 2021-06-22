@@ -203,13 +203,15 @@ public class LoanManager extends Book {
     public User getUser(int userId, String password){
         User newUser = new User();
 
-        String Sql = "SELECT * FROM users WHERE userId=" + userId + " and password=" + password;
+
 
         try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/Music?useSSL=false","root","Hanna0811" )){
             // Skapar statement
-            Statement statement = conn.createStatement();
+            PreparedStatement statement = conn.prepareStatement("SELECT * FROM users where userId= ?  AND password= ?");
             System.out.println("Användare\n========\n");
-            ResultSet result = statement.executeQuery(Sql);
+            statement.setInt(1,userId);
+            statement.setString(2,password);
+            ResultSet result = statement.executeQuery();
 
 
             // Skapar ett set där statment utför MYSQL queryn
@@ -311,6 +313,8 @@ public class LoanManager extends Book {
         }
 
         if (book.getNumOfBooks() >= 1) {
+            book.setLoandate();
+            book.setReturnDate();
 
             try {
                 Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/Music?useSSL=false", "root", "Hanna0811");
