@@ -9,6 +9,7 @@ public class User {
     public int maxLoans;
     public int currentnumberofloans;
     public String password;
+    public int strikes;
     // Fixa efter låna bok fungerar.
 
     public User() {
@@ -57,6 +58,14 @@ public class User {
 
     public int getUserType() {
         return userType;
+    }
+
+    public void setStrikes(int strikes){
+        this.strikes = strikes;
+    }
+
+    public int getStrikes(){
+        return strikes;
     }
 
     public void setMaxLoans(int userType) {
