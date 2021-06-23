@@ -87,7 +87,7 @@ public class LoanManager extends Book {
 
         try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/Music?useSSL=false","root","Hanna0811" )){
             PreparedStatement user = conn.prepareStatement("Insert INTO user Values (?,?,?,?,?)");
-            user.setInt(1,newUser.getUserId());
+            user.setInt(1,newUser.setUserId());
             user.setString(2,forname);
             user.setString(3,lastname);
             user.setInt(4,usertype);
@@ -145,7 +145,6 @@ public class LoanManager extends Book {
             System.out.println("Something went wrong " + ex.getMessage());
         }
     }
-
     public Book getBookName(String name){//La till detta då man tydligen skulle kunna söka efter bokens namn också... Men kunde inte testa den.
         Book newBook = new Book();
 
@@ -164,7 +163,7 @@ public class LoanManager extends Book {
             // Utför settet tills allt har skrivits ut
             while (result.next()) {
                 newBook = new Book(result.getInt(1),result.getString(2), result.getInt(3));
-                System.out.println("ISBN: " + result.getInt(1)+ ", Boknamn: " + result.getString(2)+ ", Antal lediga böcker: " + result.getInt(3));
+            //    System.out.println("ISBN: " + result.getInt(1)+ ", Boknamn: " + result.getString(2)+ ", Antal lediga böcker: " + result.getInt(3));
             }
 
         }
@@ -182,7 +181,7 @@ public class LoanManager extends Book {
         try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/Music?useSSL=false","root","Hanna0811" )){
             // Skapar statement
             Statement statement = conn.createStatement();
-            System.out.println("Boken\n========\n");
+         //   System.out.println("Boken\n========\n");
             ResultSet result = statement.executeQuery(Sql);
 
 
@@ -190,7 +189,7 @@ public class LoanManager extends Book {
             // Utför settet tills allt har skrivits ut
             while (result.next()) {
                 newBook = new Book(result.getInt(1),result.getString(2), result.getInt(3));
-                System.out.println("ISBN: " + result.getInt(1)+ ", Boknamn: " + result.getString(2)+ ", Antal lediga böcker: " + result.getInt(3));
+              //  System.out.println("ISBN: " + result.getInt(1)+ ", Boknamn: " + result.getString(2)+ ", Antal lediga böcker: " + result.getInt(3));
             }
 
         }
@@ -208,7 +207,7 @@ public class LoanManager extends Book {
         try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/Music?useSSL=false","root","Hanna0811" )){
             // Skapar statement
             PreparedStatement statement = conn.prepareStatement("SELECT * FROM users where userId= ?  AND password= ?");
-            System.out.println("Användare\n========\n");
+        //    System.out.println("Användare\n========\n");
             statement.setInt(1,userId);
             statement.setString(2,password);
             ResultSet result = statement.executeQuery();
@@ -218,7 +217,8 @@ public class LoanManager extends Book {
             // Utför settet tills allt har skrivits ut
             while (result.next()) {
                 newUser = new User(result.getString(2),result.getString(3), result.getInt(4), result.getString(5));
-                System.out.println("Förnamn: " + result.getString(2)+ ", Efternamn: " + result.getString(3)+ ", Användartyp: " + result.getInt(4));
+                newUser.userId = result.getInt(1);
+                //    System.out.println("Förnamn: " + result.getString(2)+ ", Efternamn: " + result.getString(3)+ ", Användartyp: " + result.getInt(4));
             }
 
         }
@@ -228,7 +228,6 @@ public class LoanManager extends Book {
 
         return newUser;
     }
-
     public User getUser(String förnamn, String efternamn, String lösenord){
       User newUser = new User();
 
@@ -241,7 +240,9 @@ public class LoanManager extends Book {
 
           while (result.next()){
               newUser = new User(result.getString(2),result.getString(3),result.getInt(4),result.getString(5));
-              System.out.println(result.getString(2) + " " + result.getString(3));
+              newUser.userId=result.getInt(1);
+
+         //     System.out.println(result.getString(2) + " " + result.getString(3));
           }
 
       }catch (SQLException exception){
@@ -251,7 +252,6 @@ public class LoanManager extends Book {
 
       return newUser;
     }
-
     public void loanBook(Book book, User user) {
 
         /*
@@ -339,9 +339,6 @@ public class LoanManager extends Book {
             System.out.print(book.getReturnDate() + " ska boken vara lämnad åter.");
         }
     }
-
-
-
     public void returnBook(){
         Book newbook = new Book();
         User user = new User();
@@ -361,7 +358,6 @@ public class LoanManager extends Book {
         }
 
     }
-
     public Book[] checkAvailableBooks(int isbn){
         ArrayList<Book> tList = new ArrayList<>();
         try {

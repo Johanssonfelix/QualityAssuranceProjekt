@@ -15,8 +15,8 @@ public class User {
     public User() {
     }
 
-    public User(String forname, String lastname, int userType, String password) {
-        this.userId = setUserId();
+    public User( String forname, String lastname, int userType, String password) {
+
         this.forName = forname;
         this.lastName = lastname;
         this.userType = userType;
@@ -31,16 +31,9 @@ public class User {
 
     }
     public int setUserId() {
-
         Random randomID = new Random();
-        StringBuilder stringBuilder = new StringBuilder();
-        for (int i = 0; i < 4; i++) {
-            int randomNumber = randomID.nextInt(10);
-            stringBuilder.append(randomNumber);
-        }
-
-        return Integer.parseInt(stringBuilder.toString());
-
+        userId = randomID.nextInt(10000);
+        return userId;
     }
 
     public String getForName() {
