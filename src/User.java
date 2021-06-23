@@ -10,22 +10,24 @@ public class User {
     public int currentnumberofloans;
     public String password;
     public int strikes;
-    // Fixa efter låna bok fungerar.
+
 
     public User() {
     }
 
-    public User( String forname, String lastname, int userType, String password) {
+    public User(String forname, String lastname, int userType, String password) {
 
         this.forName = forname;
         this.lastName = lastname;
         this.userType = userType;
         this.password = password;
-
+        this.currentnumberofloans = 0;
+        this.strikes = 0;
         this.UsertypeDescription();
         this.setMaxLoans(userType);
     }
 
+    // Fungerar men setUserId måste göras efter en ny user skapats
     public int getUserId() {
         return userId;
 
@@ -36,6 +38,7 @@ public class User {
         return userId;
     }
 
+    // Bör fungera
     public String getForName() {
         return forName;
     }
@@ -43,6 +46,7 @@ public class User {
         this.forName = forname;
     }
 
+    // Bör fungera
     public String getLastName() {
         return lastName;
     }
@@ -50,18 +54,20 @@ public class User {
         this.lastName = lastname;
     }
 
+    // Fungerar
     public int getUserType() {
         return userType;
     }
 
+    // Inte utvecklat vidare(Inte påbörjad av Felix)
     public void setStrikes(int strikes){
         this.strikes = strikes;
     }
-
     public int getStrikes(){
         return strikes;
     }
 
+    // Fungerar
     public void setMaxLoans(int userType) {
         if (userType == 0) {
             this.maxLoans = 3;
@@ -73,11 +79,11 @@ public class User {
             this.maxLoans = 10;
         }
     }
-
     public int getMaxLoans() {
         return maxLoans;
     }
 
+    // Fungerar
     public void setUserType(int userType) {
         if (userType == 0 || userType == 1 || userType == 2 || userType == 3) {
             this.userType = userType;
@@ -87,6 +93,7 @@ public class User {
 
     }
 
+    // Fungerar
     public void UsertypeDescription() {
         if (userType == 0) {
             this.usertypeDescription = "Student";
@@ -103,6 +110,7 @@ public class User {
         }
     }
 
+    // Fungerar
     public String getPassword(){return password;}
     public void setPassword(String password){
         if (password.length() <= 3){

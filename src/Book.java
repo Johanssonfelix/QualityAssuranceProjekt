@@ -10,22 +10,15 @@ public class Book {
 
     public Book() {
     }
-
-
     public Book(int isbn, int userID) {
         this.ISBN = isbn;
         this.userID = userID;
     }
-
-
-
-
     public Book(int isbn, String bookName, int numOfBooks) {
         this.ISBN = isbn;
         this.bookName = bookName;
         this.numOfBooks = numOfBooks;
     }
-
     public Book(int isbn, String bookName, int userID, int numOfBooks, LocalDate loanDate, LocalDate returnDate){
         this.ISBN = isbn;
         this.bookName = bookName;
@@ -33,30 +26,31 @@ public class Book {
         this.numOfBooks = numOfBooks;
     }
 
+    // Fungerar
     public int getBookISBN() {
         return ISBN;
     }
-
     public void setBookISBN(int ISBN) {
         this.ISBN = ISBN;
     }
 
+    // Fungerar
     public String getBookName() {
         return bookName;
     }
-
     public void setBookName(String bookName) {
         this.bookName = bookName;
     }
 
+    // Fungerar
     public int getLoanUser() {
         return userID;
     }
-
     public void setLoanUser(int userID) {
         this.userID = userID;
     }
 
+    // Fungerar
     public int getNumOfBooks(){
         return numOfBooks;
     }
@@ -64,23 +58,21 @@ public class Book {
         this.numOfBooks = numOfBooks;
     }
 
+    // Fungerar
     public LocalDate getLoanDate(){
         return loanDate;
     }
-
     public void setLoandate(){
        this.loanDate = LocalDate.now();
 
     }
 
+    // Fungerar
     public LocalDate getReturnDate(){
         return returnDate;
     }
-
     public void setReturnDate() {
     returnDate = LocalDate.now().plusDays(14);
-
-
 
     }
 

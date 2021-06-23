@@ -11,8 +11,8 @@ public class BookHandler {
         this.user = user;
     }
 
-    public boolean addBook(int isbn, String bookName, int numOfBooks){
-        return loanManager.addBook(isbn, bookName, numOfBooks);
+    public void addBook(int isbn, String bookName, int numOfBooks){
+        loanManager.addBook(isbn, bookName, numOfBooks);
 
     }
 

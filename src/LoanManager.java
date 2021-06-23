@@ -6,6 +6,7 @@ public class LoanManager extends Book {
 
     public LoanManager(){}
 
+    // Fungerar
     public void showBooks(){
 
         try {
@@ -34,6 +35,8 @@ public class LoanManager extends Book {
         }
 
     }
+
+    // Fungerar
     public void showUsers(){
 
         try {
@@ -61,12 +64,14 @@ public class LoanManager extends Book {
 
         }
 
-    public boolean addBook(int isbn, String namn, int numberofbooks){
+    // Fungerar, ändrade tillbaka tilll void, men vi kör boolean som Jakob fixade
+    // Vi förändrar även de andra add/delete metoder till booleans
+    public void addBook(int isbn, String namn, int numberofbooks){
 
         int ISBN = isbn;
         String Namn = namn;
         int NumberOfBooks = numberofbooks;
-        boolean bookadded = false;
+
 
         try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/Music?useSSL=false","root","Hanna0811" )){
             PreparedStatement book = conn.prepareStatement("Insert INTO books Values (?,?,?)");
@@ -74,14 +79,16 @@ public class LoanManager extends Book {
             book.setString(2,Namn);
             book.setInt(3,NumberOfBooks);
             book.executeUpdate();
-            bookadded = true;
+
         }
         catch (SQLException ex){
             System.out.println("Something went wrong " + ex.getMessage());
         }
-        return bookadded;
+
 
     }
+
+    // Har fungerat innan
     public void addUser( String forname, String lastname, int usertype, String password){
         User newUser = new User(forname,lastname,usertype,password);
 
@@ -101,6 +108,7 @@ public class LoanManager extends Book {
 
     }
 
+    // Fungerar
     public void deleteBookISBN(int isbn){//Ändrade även namnet på denna...
         int ISBN = isbn;
 
@@ -117,6 +125,8 @@ public class LoanManager extends Book {
 
 
     }
+
+    // Fungerar
     public void deleteBookName(String name){//La till denna metoden för att kunna ta bort boken på namn, men kunde inte testa den...
 
 
@@ -130,6 +140,8 @@ public class LoanManager extends Book {
             System.out.println("Something went wrong " + ex.getMessage());
         }
     }
+
+    // Fungerar
     public void deleteUser(int userid, String forname, String lastname, int usertype, String password){
         try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/Music?useSSL=false","root","Hanna0811" )){
             PreparedStatement user = conn.prepareStatement("DELETE FROM users where userId = ? and forname = ? and lastname = ? and usertype = ? and password = ?");
@@ -145,6 +157,8 @@ public class LoanManager extends Book {
             System.out.println("Something went wrong " + ex.getMessage());
         }
     }
+
+   // Fungerar
     public Book getBookName(String name){//La till detta då man tydligen skulle kunna söka efter bokens namn också... Men kunde inte testa den.
         Book newBook = new Book();
 
@@ -173,6 +187,8 @@ public class LoanManager extends Book {
 
         return newBook;
     }
+
+    // Fungerar
     public Book getBookISBN(int isbn){//Bytte namn på denna....
         Book newBook = new Book();
 
@@ -199,6 +215,8 @@ public class LoanManager extends Book {
 
         return newBook;
     }
+
+    // Fungerar
     public User getUser(int userId, String password){
         User newUser = new User();
 
@@ -228,6 +246,8 @@ public class LoanManager extends Book {
 
         return newUser;
     }
+
+    // Fungerar
     public User getUser(String förnamn, String efternamn, String lösenord){
       User newUser = new User();
 
@@ -252,6 +272,9 @@ public class LoanManager extends Book {
 
       return newUser;
     }
+
+    // Ger felmedelande om en parameter som är fel, men fungerar utöver detta.
+    // Tror att det är första delen, angående numberofbooks
     public void loanBook(Book book, User user) {
 
         /*
@@ -296,6 +319,7 @@ public class LoanManager extends Book {
         }
 
          */
+
         int availableBooks = 0;
 
         try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/Music?useSSL=false", "root", "Hanna0811")) {
@@ -326,19 +350,35 @@ public class LoanManager extends Book {
                 loan.setInt(3, user.getUserId());
                 loan.setDate(4, Date.valueOf(book.getLoanDate()));
                 loan.setDate(5, Date.valueOf(book.getReturnDate()));
-
                 loan.executeUpdate();
 
             } catch (SQLException ex) {
                 System.out.println(ex.getMessage());
                 System.out.println("Något gick fel");
             }
+
+            try {
+                Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/Music?useSSL=false", "root", "Hanna0811");
+                String sql2 = "UPDATE books SET numberofbooks = ? Where isbn= ?";
+                PreparedStatement numberupdate = conn.prepareStatement(sql2);
+                numberupdate.setInt(1 ,book.numOfBooks - 1);
+                numberupdate.setInt(2,book.getBookISBN());
+                numberupdate.executeUpdate();
+
+            } catch (SQLException exception){
+                System.out.println(exception.getMessage());
+                System.out.println("Något gick fel");
+            }
         }
+
+
         else if (book.getNumOfBooks() == 0){
             System.out.println("Ledsen, denna bok är inte tillgägnlig för att lån idag. Den");
             System.out.print(book.getReturnDate() + " ska boken vara lämnad åter.");
         }
     }
+
+    // Jag, Felix har inte rört denna ännu
     public void returnBook(){
         Book newbook = new Book();
         User user = new User();
@@ -358,6 +398,8 @@ public class LoanManager extends Book {
         }
 
     }
+
+    // Jag, Felix har inte rört denna ännu
     public Book[] checkAvailableBooks(int isbn){
         ArrayList<Book> tList = new ArrayList<>();
         try {
