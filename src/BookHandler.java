@@ -13,7 +13,6 @@ public class BookHandler {
 
     public void addBook(int isbn, String bookName, int numOfBooks){
         loanManager.addBook(isbn, bookName, numOfBooks);
-
     }
 
     public Book loanBook(int isbn){
@@ -29,10 +28,10 @@ public class BookHandler {
         return tBook;
     }
 
-    /*public Book returnBook(int isbn){
+    public Book returnBook(int isbn){
         Book tBook = loanManager.getBookISBN(isbn);
-    }*/
-    //Kommer behöva kolla lite på kopplingstabellen
+        return tBook;
+    }
 
     public boolean checkAvaibilty(Book book){
         if (book.getNumOfBooks() == 0){

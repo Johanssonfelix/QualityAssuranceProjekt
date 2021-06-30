@@ -107,6 +107,7 @@ public class LoanManager extends Book {
 
 
     }
+    
 
     // Fungerar
     public void deleteBookISBN(int isbn){//Ändrade även namnet på denna...
@@ -379,9 +380,7 @@ public class LoanManager extends Book {
     }
 
     // Jag, Felix har inte rört denna ännu
-    public void returnBook(){
-        Book newbook = new Book();
-        User user = new User();
+    public void returnBook(Book newbook, User user){
 
         try {
             Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/Music?useSSL=false","root","Hanna0811");
