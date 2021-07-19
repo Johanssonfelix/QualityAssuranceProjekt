@@ -10,7 +10,14 @@ public class User {
     public int currentnumberofloans;
     public String password;
     public int strikes;
+    int suspendedUser;
     // Fixa efter låna bok fungerar.
+
+    public boolean userIsSuspended(){
+        return suspended;
+    }
+
+    boolean suspended;
 
     public User() {
     }
@@ -21,6 +28,22 @@ public class User {
         this.lastName = lastname;
         this.userType = userType;
         this.password = password;
+        this.suspended = false;
+        this.suspendedUser = 0;
+        this.strikes = 0;
+
+        this.UsertypeDescription();
+        this.setMaxLoans(userType);
+    }
+
+    public User(String forname, String lastname, int userType, String password,int strikes, int suspendedUser, boolean suspended) {
+        this.userId = setUserId();
+        this.forName = forname;
+        this.lastName = lastname;
+        this.userType = userType;
+        this.password = password;
+        this.suspendedUser = suspendedUser;
+        this.strikes = strikes;
 
         this.UsertypeDescription();
         this.setMaxLoans(userType);

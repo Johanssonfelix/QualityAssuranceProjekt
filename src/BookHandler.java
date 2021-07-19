@@ -3,7 +3,6 @@ import java.util.NoSuchElementException;
 public class BookHandler {
 
     LoanManager loanManager;
-    Book[] books;
     User user;
 
     public BookHandler(LoanManager loanManager, User user) {
