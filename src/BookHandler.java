@@ -1,9 +1,10 @@
+import java.util.Calendar;
+import java.util.Date;
 import java.util.NoSuchElementException;
 
 public class BookHandler {
 
     LoanManager loanManager;
-    Book[] books;
     User user;
 
     public BookHandler(LoanManager loanManager, User user) {
@@ -29,10 +30,9 @@ public class BookHandler {
         return tBook;
     }
 
-    /*public Book returnBook(int isbn){
-        Book tBook = loanManager.getBookISBN(isbn);
-    }*/
-    //Kommer behöva kolla lite på kopplingstabellen
+    public Book returnBook(int isbn){
+        return loanManager.getBookISBN(isbn);
+    }
 
     public boolean checkAvaibilty(Book book){
         if (book.getNumOfBooks() == 0){
@@ -42,11 +42,4 @@ public class BookHandler {
             return book.getNumOfBooks() > 0;
     }
 
-
-
-
-    /*public Book[] getUserloans(){
-        return loanManager.getLoanUser();
-
-    }*/
 }
