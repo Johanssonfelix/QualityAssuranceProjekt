@@ -1,10 +1,9 @@
-import java.util.Calendar;
-import java.util.Date;
 import java.util.NoSuchElementException;
 
 public class BookHandler {
 
     LoanManager loanManager;
+    Book[] books;
     User user;
 
     public BookHandler(LoanManager loanManager, User user) {
@@ -12,9 +11,8 @@ public class BookHandler {
         this.user = user;
     }
 
-    public boolean addBook(int isbn, String bookName, int numOfBooks){
-        return loanManager.addBook(isbn, bookName, numOfBooks);
-
+    public void addBook(int isbn, String bookName, int numOfBooks){
+        loanManager.addBook(isbn, bookName, numOfBooks);
     }
 
     public Book loanBook(int isbn){
@@ -31,7 +29,8 @@ public class BookHandler {
     }
 
     public Book returnBook(int isbn){
-        return loanManager.getBookISBN(isbn);
+        Book tBook = loanManager.getBookISBN(isbn);
+        return tBook;
     }
 
     public boolean checkAvaibilty(Book book){
@@ -42,4 +41,11 @@ public class BookHandler {
             return book.getNumOfBooks() > 0;
     }
 
+
+
+
+    /*public Book[] getUserloans(){
+        return loanManager.getLoanUser();
+
+    }*/
 }
