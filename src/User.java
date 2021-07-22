@@ -44,6 +44,7 @@ public class User {
         this.password = password;
         this.suspendedUser = suspendedUser;
         this.strikes = strikes;
+        this.suspended = suspended;
 
         this.UsertypeDescription();
         this.setMaxLoans(userType);
@@ -91,6 +92,23 @@ public class User {
     public int getStrikes(){
         return strikes;
     }
+
+    public void setsuspendedUser(){
+        this.suspendedUser = suspendedUser;
+    }
+
+    public int getSuspendedUser(){
+        return suspendedUser;
+    }
+
+    public void setCurrentnumberofloans(){
+        this.currentnumberofloans = currentnumberofloans;
+    }
+
+    public int getcurrentnumberofloans(int currentnumberofloans){
+        return currentnumberofloans;
+    }
+
 
     public void setMaxLoans(int userType) {
         if (userType == 0) {

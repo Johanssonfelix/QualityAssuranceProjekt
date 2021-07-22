@@ -221,8 +221,6 @@ public class LoanManager extends Book {
     public User getUser(int userId, String password){
         User newUser = new User();
 
-
-
         try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/Music?useSSL=false","root","Hanna0811" )){
             // Skapar statement
             PreparedStatement statement = conn.prepareStatement("SELECT * FROM users where userId= ?  AND password= ?");
@@ -249,14 +247,14 @@ public class LoanManager extends Book {
     }
 
     // Fungerar
-    public User getUser(String förnamn, String efternamn, String lösenord){
+    public User getUser(String fname, String lname, String pword){
       User newUser = new User();
 
       try(Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/Music?useSSL=false","root","Hanna0811" )){
           PreparedStatement statement = conn.prepareStatement("SELECT * FROM users where forname= ? AND lastname= ?  AND password= ?");
-          statement.setString(1,förnamn);
-          statement.setString(2,efternamn);
-          statement.setString(3, lösenord);
+          statement.setString(1,fname);
+          statement.setString(2,lname);
+          statement.setString(3, pword);
           ResultSet result = statement.executeQuery();
 
           while (result.next()){
@@ -402,8 +400,8 @@ public class LoanManager extends Book {
     public Book[] checkAvailableBooks(int isbn){
         ArrayList<Book> tList = new ArrayList<>();
         try {
-            String sql = "Select isbn, (lånadav?) from (kopplingstabell) Where isbn = ?";
             Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/Music?useSSL=false","root","Hanna0811");
+            String sql = "Select isbn, (lånadav?) from (kopplingstabell) Where isbn = ?";
             PreparedStatement preparedStatement = conn.prepareStatement(sql);
 
             preparedStatement.setInt(1, isbn);
@@ -420,6 +418,51 @@ public class LoanManager extends Book {
         return tList.toArray(books);
     }
 
+    public void addStrike(int userid){//Lite som jag har tänkt mig att det ska fungera men vi får se...
+        try {
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/Music?useSSL=false","root","Hanna0811");
+            String sql = "UPDATE user, (Strikes?) SET strikes = strikes + 1 Where userid = ?";//Vi får kolla tabellerna angående detta
+            PreparedStatement preparedStatement = conn.prepareStatement(sql);
+            preparedStatement.setInt(1, userid);
+            preparedStatement.executeUpdate();
+            System.out.println("Bok inlämand för sent, Strike tilldelad användare");
+
+        } catch (SQLException e) {
+            System.out.println(e.getErrorCode());
+        }
+
+    }
+
+    public void addSuspension(int userid){//Vi får testa lite...
+        try {
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/Music?useSSL=false","root","Hanna0811");
+            String sql = ("UPDATE user SET strikes=0, suspensions = suspensions+1, suspended=true, suspensiondate = DATE_ADD(CURRENT_DATE, INTERVAL 15 DAY) WHERE userid = ?");//Lite så här jag tänker att det ska fungera.
+            PreparedStatement preparedStatement = conn.prepareStatement(sql);
+            preparedStatement.setInt(1, userid);
+            preparedStatement.executeUpdate();
+            System.out.println("Avstängning tillagd");
+
+        } catch (SQLException e) {
+            System.out.println(e.getErrorCode());
+        }
+    }
+
+    public void removeSuspension(int userid){//En grund att stå på
+        try {
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/Music?useSSL=false","root","Hanna0811");
+            String sql = ("UPDATE user SET suspended=false, (suspensiondate=null?), strikes=0 WHERE userid = ?");
+            PreparedStatement preparedStatement = conn.prepareStatement(sql);
+            preparedStatement.setInt(1, userid);
+            preparedStatement.executeUpdate();
+
+            System.out.println("Avstängning borttagen");
+
+        }
+        catch (SQLException e){
+            System.out.println(e.getErrorCode());
+        }
+
+    }
 
 
 
