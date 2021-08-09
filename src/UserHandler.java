@@ -14,11 +14,11 @@ public class UserHandler {
     public void removerUser(int userid, String forname, String lastname, int usertype, String password){
         loanManager.deleteUser(userid,forname, lastname,usertype,password);
     }
-
+/*
     public void addStrike(){
-        loanManager.addStrike(user.userId);
+        loanManager.addStrike(user);
     }
-
+/*
     public boolean checkUserSuspension(User user){
         if (user.getStrikes() == 3){
             loanManager.addSuspension(user.userId);//Skapa en sql-metod som gör detta möjligt, samt uppdatera tabellerna
@@ -31,5 +31,6 @@ public class UserHandler {
     /*public boolean checkUserBan(User user, LoanManager loanManager){
         //if (user.getSuspendedUser())
     }*/
+
 
 }

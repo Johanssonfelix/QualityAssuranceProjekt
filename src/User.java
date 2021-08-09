@@ -13,11 +13,6 @@ public class User {
     int suspendedUser;
     // Fixa efter låna bok fungerar.
 
-    public boolean userIsSuspended(){
-        return suspended;
-    }
-
-    boolean suspended;
 
     public User() {
     }
@@ -28,7 +23,6 @@ public class User {
         this.lastName = lastname;
         this.userType = userType;
         this.password = password;
-        this.suspended = false;
         this.suspendedUser = 0;
         this.strikes = 0;
 
@@ -36,19 +30,6 @@ public class User {
         this.setMaxLoans(userType);
     }
 
-    public User(String forname, String lastname, int userType, String password,int strikes, int suspendedUser, boolean suspended) {
-        this.userId = setUserId();
-        this.forName = forname;
-        this.lastName = lastname;
-        this.userType = userType;
-        this.password = password;
-        this.suspendedUser = suspendedUser;
-        this.strikes = strikes;
-        this.suspended = suspended;
-
-        this.UsertypeDescription();
-        this.setMaxLoans(userType);
-    }
 
     public int getUserId() {
         return userId;
@@ -94,7 +75,12 @@ public class User {
     }
 
     public void setsuspendedUser(){
-        this.suspendedUser = suspendedUser;
+        if (strikes == 3){
+          this.suspendedUser = 1;
+        } else {
+          this.suspendedUser = 0;
+        }
+       // this.suspendedUser = suspendedUser;
     }
 
     public int getSuspendedUser(){
@@ -159,4 +145,12 @@ public class User {
             this.password = password;
         }
     }
+
+    public int getCurrentnumberofloans(){
+        return currentnumberofloans;
+    }
+    public void setCurrentnumberofloans(int numberofloans){
+        this.currentnumberofloans = numberofloans;
+    }
+
 }

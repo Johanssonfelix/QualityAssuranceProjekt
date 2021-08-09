@@ -1,8 +1,12 @@
 import java.sql.*;
 import java.util.ArrayList;
 
+// Fixa suspension och strikes i mån av tid, returnbook halvklar.
+// Testning ska göras klart.
 
 public class LoanManager extends Book {
+
+    int loanId = 0;
 
     public LoanManager(){}
 
@@ -272,8 +276,7 @@ public class LoanManager extends Book {
       return newUser;
     }
 
-    // Ger felmedelande om en parameter som är fel, men fungerar utöver detta.
-    // Tror att det är första delen, angående numberofbooks
+    // Fungerar, men inte klar
     public void loanBook(Book book, User user) {
 
         /*
@@ -319,82 +322,110 @@ public class LoanManager extends Book {
 
          */
 
-        int availableBooks = 0;
+        if (user.currentnumberofloans > user.maxLoans || user.suspendedUser == 1){
+            System.out.println("Du har för många lån eller är du avstängd");
+        } else {
+            int availableBooks = 0;
 
-        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/Music?useSSL=false", "root", "Hanna0811")) {
-            String sql = "SELECT numberofbooks FROM books WHERE ISBN=" + book.getBookISBN();
-            //Kom inte ihåg om vi la antalet i book eller i en kopplingstabell
-            // Tar detta från books istället för kopplingstabellen
+            try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/Music?useSSL=false", "root", "Hanna0811")) {
+                String sql = "SELECT numberofbooks FROM books WHERE ISBN=" + book.getBookISBN();
+                //Kom inte ihåg om vi la antalet i book eller i en kopplingstabell
+                // Tar detta från books istället för kopplingstabellen
 
-            PreparedStatement statement = conn.prepareStatement(sql);
-            statement.setInt(3, book.getNumOfBooks() - 1);
-            statement.executeQuery();
+                PreparedStatement statement = conn.prepareStatement(sql);
+                //    statement.setInt(1, book.getNumOfBooks() - 1);
+                statement.executeQuery();
 
 
-        } catch (SQLException ex) {
-            System.out.println("Something went wrong " + ex.getMessage());
+            } catch (SQLException ex) {
+                System.out.println("Something went wrong " + ex.getMessage());
+            }
+
+            if (book.getNumOfBooks() >= 1) {
+                book.setLoandate();
+                book.setReturnDate();
+
+                try {
+                    Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/Music?useSSL=false", "root", "Hanna0811");
+
+                    String sql = "Insert Into bookuser VALUES (?,?,?,?,?,?)";
+                    PreparedStatement loan = conn.prepareStatement(sql);
+                    loan.setInt(1, book.getBookISBN());
+                    loan.setString(2, book.getBookName());
+                    loan.setInt(3, user.getUserId());
+                    loan.setDate(4, Date.valueOf(book.getLoanDate()));
+                    loan.setDate(5, Date.valueOf(book.getReturnDate()));
+                    loan.setInt(6,loanId++);
+                    loan.executeUpdate();
+
+                } catch (SQLException ex) {
+                    System.out.println(ex.getMessage());
+                    System.out.println("Något gick fel");
+                }
+
+                try {
+                    Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/Music?useSSL=false", "root", "Hanna0811");
+                    String sql2 = "UPDATE books SET numberofbooks = ? Where isbn= ?";
+                    PreparedStatement numberupdate = conn.prepareStatement(sql2);
+                    numberupdate.setInt(1, book.numOfBooks - 1);
+                    numberupdate.setInt(2, book.getBookISBN());
+                    numberupdate.executeUpdate();
+
+                } catch (SQLException exception) {
+                    System.out.println(exception.getMessage());
+                    System.out.println("Något gick fel");
+                }
+                user.currentnumberofloans++;
+            } else if (book.getNumOfBooks() == 0) {
+                System.out.println("Ledsen, denna bok är inte tillgägnlig för att lån idag. Den");
+                System.out.print(book.getReturnDate() + " ska boken vara lämnad åter.");
+            }
         }
+    }
 
-        if (book.getNumOfBooks() >= 1) {
-            book.setLoandate();
-            book.setReturnDate();
+    // Jag, Felix har inte rört denna ännu
+  /*  public void returnBook(Book book, User user){
+/*
+        try {
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/Music?useSSL=false","root","Hanna0811");
+            PreparedStatement nps = conn.prepareStatement("UPDATE book SET antal = antal + 1 WHERE isbn=?");//Inte säker på kommandot
+            PreparedStatement nnps = conn.prepareStatement("DELETE from (LÅnadav, Kopplingstabellen?) where isbn = ? and (lånad av person? = ?)");//Inte säker på kommandot
 
             try {
                 Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/Music?useSSL=false", "root", "Hanna0811");
 
-                String sql = "Insert Into bookuser VALUES (?,?,?,?,?)";
+           //     String sql = "DELETE FROM Row where loanId =?";
                 PreparedStatement loan = conn.prepareStatement(sql);
                 loan.setInt(1, book.getBookISBN());
                 loan.setString(2, book.getBookName());
                 loan.setInt(3, user.getUserId());
                 loan.setDate(4, Date.valueOf(book.getLoanDate()));
                 loan.setDate(5, Date.valueOf(book.getReturnDate()));
+                loan.setInt(6,loanId++);
                 loan.executeUpdate();
 
             } catch (SQLException ex) {
                 System.out.println(ex.getMessage());
                 System.out.println("Något gick fel");
             }
-
-            try {
-                Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/Music?useSSL=false", "root", "Hanna0811");
-                String sql2 = "UPDATE books SET numberofbooks = ? Where isbn= ?";
-                PreparedStatement numberupdate = conn.prepareStatement(sql2);
-                numberupdate.setInt(1 ,book.numOfBooks - 1);
-                numberupdate.setInt(2,book.getBookISBN());
-                numberupdate.executeUpdate();
-
-            } catch (SQLException exception){
-                System.out.println(exception.getMessage());
-                System.out.println("Något gick fel");
-            }
-        }
-
-
-        else if (book.getNumOfBooks() == 0){
-            System.out.println("Ledsen, denna bok är inte tillgägnlig för att lån idag. Den");
-            System.out.print(book.getReturnDate() + " ska boken vara lämnad åter.");
-        }
-    }
-
-    // Jag, Felix har inte rört denna ännu
-    public void returnBook(Book newbook, User user){
-
-        try {
-            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/Music?useSSL=false","root","Hanna0811");
-            PreparedStatement nps = conn.prepareStatement("UPDATE book SET antal = antal + 1 WHERE isbn=?");//Inte säker på kommandot
-            PreparedStatement nnps = conn.prepareStatement("DELETE from (LÅnadav, Kopplingstabellen?) where isbn = ? and (lånad av person? = ?)");//Inte säker på kommandot
-
+      /*
             nnps.setInt(1, newbook.getBookISBN());
             nnps.setInt(2, user.getUserId());
             nps.setInt(1, newbook.getBookISBN());
+
 
 
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
 
+
+
     }
+    /*
+
+   */
+
 
     // Jag, Felix har inte rört denna ännu
     public Book[] checkAvailableBooks(int isbn){
@@ -418,27 +449,38 @@ public class LoanManager extends Book {
         return tList.toArray(books);
     }
 
-    public void addStrike(int userid){//Lite som jag har tänkt mig att det ska fungera men vi får se...
+    public void addStrike(User user){//Lite som jag har tänkt mig att det ska fungera men vi får se...
+        LoanManager lm = new LoanManager();
+        if (user.getStrikes() < 3){
         try {
             Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/Music?useSSL=false","root","Hanna0811");
-            String sql = "UPDATE user, (Strikes?) SET strikes = strikes + 1 Where userid = ?";//Vi får kolla tabellerna angående detta
+            String sql = "UPDATE users SET strikes = ? Where userid = ?";//Vi får kolla tabellerna angående detta
             PreparedStatement preparedStatement = conn.prepareStatement(sql);
-            preparedStatement.setInt(1, userid);
+            preparedStatement.setInt(1, user.strikes + 1 );
+            preparedStatement.setInt(2, user.getUserId());
             preparedStatement.executeUpdate();
             System.out.println("Bok inlämand för sent, Strike tilldelad användare");
+
 
         } catch (SQLException e) {
             System.out.println(e.getErrorCode());
         }
+        }
+        else {
+          //  lm.addSuspension(user.getUserId());
+        }
+
 
     }
 
-    public void addSuspension(int userid){//Vi får testa lite...
+    // Suspension
+/*
+    public void addSuspension(User user){//Vi får testa lite...
         try {
             Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/Music?useSSL=false","root","Hanna0811");
             String sql = ("UPDATE user SET strikes=0, suspensions = suspensions+1, suspended=true, suspensiondate = DATE_ADD(CURRENT_DATE, INTERVAL 15 DAY) WHERE userid = ?");//Lite så här jag tänker att det ska fungera.
             PreparedStatement preparedStatement = conn.prepareStatement(sql);
-            preparedStatement.setInt(1, userid);
+            preparedStatement.setInt(1, user.getUserId());
             preparedStatement.executeUpdate();
             System.out.println("Avstängning tillagd");
 
@@ -465,5 +507,7 @@ public class LoanManager extends Book {
     }
 
 
+
+ */
 
 }

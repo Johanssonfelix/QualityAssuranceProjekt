@@ -1,7 +1,9 @@
 import org.junit.jupiter.api.Test;
+
 import java.util.NoSuchElementException;
-import static org.mockito.Mockito.*;
+
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 class LoanManagerTest {
 
@@ -90,7 +92,7 @@ class LoanManagerTest {
         assertEquals(false, availableBook);
 
     }
-
+/*
     @Test
     void checkSuspension_notSuspended(){
 
@@ -119,5 +121,7 @@ class LoanManagerTest {
         assertEquals(false,userStatus);
 
     }
+
+ */
 
 }

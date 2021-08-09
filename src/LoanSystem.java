@@ -3,6 +3,7 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.Scanner;
 
+
 public class LoanSystem extends LoanManager {
     private static Logger logger = LogManager.getLogger(LoanSystem.class);
 
@@ -15,124 +16,6 @@ public class LoanSystem extends LoanManager {
         boolean end = false;
         LoanManager lm = new LoanManager();
         while (!end) {
-            /*
-            System.out.println("Biblioteksmeny\n=======");
-            System.out.println("1.Visa inlagda böcker");
-            System.out.println("2.Söka efter bok");
-            System.out.println("3.Hantera lån");
-            System.out.println("4.Visa låntagare");
-            System.out.println("5.Avsluta");
-            System.out.print("===>");
-            option = input.nextInt();
-            if (option == 1) {
-                lm.showBooks();
-            } else if (option == 2) {
-
-                int bokval = 0;
-                System.out.println("Vilken bok vill du söka efter?");
-                System.out.println("1.Bokens namn?");
-                System.out.println("2.Bokens IBSN?");
-                System.out.print("");
-                bokval = input.nextInt();
-                if(bokval == 1){ // Söker på namnet på boken!
-                    System.out.println("Skriv in Bokens namn!");
-                    System.out.print("===>");
-                    String boknamn = input.next();
-                    lm.getBookName(boknamn);
-                }else if(bokval == 2){ //Med detta val ska man kunna söka efter ISBN
-                    int isbn;
-                    System.out.println("Skriv in ISBN!");
-                    isbn = input.nextInt();
-                    lm.getBookISBN(isbn);
-                }
-            } else if (option == 3) {
-                System.out.println("1. Vill du ta bort bok?");
-                System.out.println("2. Vill du lägga till bok?");
-                System.out.println("3. Vill du registera boklån?");
-                System.out.println("Vilken bok vill du ta bort?");
-                System.out.print("===>");
-                int bokval = 0;
-                bokval = input.nextInt();
-
-                if (bokval == 1) {
-                    System.out.println("1.Ta bort med bokens namn?");
-                    System.out.println("2.Ta bort med bokens IBSN?");
-                    int val = 0;
-                    val = input.nextInt();
-
-                    if (val == 1) { //Söka med hjälp av bokens namn
-                        String boknamn;
-                        System.out.println("Skriv in bokens namn");
-                        System.out.print("===>");
-                        boknamn = input.next();
-                        lm.deleteBookName(boknamn);
-                        logger.info("Boken: " + boknamn + " har tagits bort" );
-
-                    }
-                    if (val == 2) { //Söka på ISBN...
-                        int isbn;
-                        System.out.println("Skriv in bokens ISBN");
-                        System.out.print("===>");
-                        isbn = input.nextInt();
-                        lm.deleteBookISBN(isbn);
-                        logger.info("Boken med ISBN: " + isbn + " har tagits bort" );
-                    }
-                }
-                if (bokval == 2){
-                    System.out.println("Lägg till bok:");
-                    System.out.println("Bokens namn:");
-                    String boknamn = input.next();
-                    System.out.println("Bokens isbn");
-                    int isbn = input.nextInt();
-                    System.out.println("Antal Böcker");
-                    int numberofbooks = input.nextInt();
-
-                    lm.addBook(isbn,boknamn,numberofbooks);
-                    System.out.println("Boken är inlaggd");
-                    logger.info(isbn + " " + boknamn + " " + numberofbooks);
-                }
-                if (bokval == 3){
-                    System.out.println("1.Vill du registera ett lån");
-                    System.out.println("2.Vill du registrera en återlämning");
-                    int val1 = 0;
-                    val1 = input.nextInt();
-
-                    if (val1 == 1){
-                        System.out.println("Registrera användare och boklån");
-
-                        logger.info("Användaren har lånat boken");
-                    }
-                    if (val1 == 2){
-                        System.out.println("Registrera återlämnning");
-
-                        logger.info("Användaren har återlämnat boken");
-                    }
-                }
-                // För Users Låna, Återlämna
-                // För Libriarian Lägga till, Ta bort
-            } else if (option == 4) {
-                System.out.println("1. Visa alla låntagere");
-                System.out.println("2. Visa låntagere på specik bok");
-                System.out.println("3. Visa lånetagares alla böcker");
-
-                int val = 0;
-                val = input.nextInt();
-
-                if (val==1){
-                    lm.showUsers();
-                }
-                if (val==2){
-
-                }
-                if (val==3){
-
-                }
-            } else if (option == 5) {
-                end = true;
-                System.out.println("Ha det bra");
-            }
-
-             */
 
             System.out.println("Välkommen till Consol-Libary!");
             System.out.println("-----------------------------");
@@ -202,6 +85,9 @@ public class LoanSystem extends LoanManager {
                         if (option == 1) {
                             System.out.println("Vilken bok vill du låna?");
                             String boknamn = input.next();
+                            lm.loanBook(manager.getBookName(boknamn),user);
+                            logger.info(user.getUserId() + " har lånat " + manager.getBookName(boknamn) + " användaren har " + user.currentnumberofloans + " lån" );
+                            System.out.println(" Grattis du har lånat boken");
 
                         } else if (option == 2) {
                             System.out.println("Vilken bok vill du lämna tillbaka?");
@@ -217,11 +103,14 @@ public class LoanSystem extends LoanManager {
                                 System.out.println("Skriv in bokens namn:");
                                 String boknamn = input.next();
                                 lm.getBookName(boknamn);
+
                             } else if (option == 2) {
                                 System.out.println("Skriv in bokens isbn");
                                 int isbn = input.nextInt();
                                 lm.getBookISBN(isbn);
                             }
+                        } else if (option == 4){
+                            lm.showBooks();
                         }
                     } else if (option == 3) {
                         System.out.println("Vill du radera ditt konto?");
@@ -258,6 +147,9 @@ public class LoanSystem extends LoanManager {
                         if (option == 1) {
                             System.out.println("Vilken bok vill du låna?");
                             String boknamn = input.next();
+                            lm.loanBook(manager.getBookName(boknamn),user);
+                            logger.info(user.getUserId() + " har lånat " + manager.getBookName(boknamn) + " användaren har " + user.currentnumberofloans + " lån" );
+                            System.out.println(" Grattis du har lånat boken");
 
                         } else if (option == 2) {
                             System.out.println("Vilken bok vill du lämna tillbaka?");
@@ -277,7 +169,10 @@ public class LoanSystem extends LoanManager {
                                 System.out.println("Skriv in bokens isbn");
                                 int isbn = input.nextInt();
                                 lm.getBookISBN(isbn);
+                            } else if (option == 3){
+                                lm.showBooks();
                             }
+
                         }
                     } else if (option == 2) {
                         System.out.println("Vill du radera ditt konto?");
@@ -301,12 +196,21 @@ public class LoanSystem extends LoanManager {
                     }
                 }
 
-
-
             }
             else if (option == 2){
-                lm.showUsers();
+                System.out.println(" Vill du?" +
+                        "1. Se alla böckerna?" +
+                        "2. Söka efter specifik bok?");
+                option = input.nextInt();
+                if (option == 1){
+                    lm.showBooks();
+                } else if (option == 2){
+                    System.out.println("Skriv in bokens namn");
+                    String boknamn = input.next();
+                    lm.getBookName(boknamn);
+                }
             }
+
 
 
         }
