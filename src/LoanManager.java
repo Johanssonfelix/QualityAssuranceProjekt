@@ -241,12 +241,10 @@ public class LoanManager extends Book {
                 newUser.userId = result.getInt(1);
                 //    System.out.println("Förnamn: " + result.getString(2)+ ", Efternamn: " + result.getString(3)+ ", Användartyp: " + result.getInt(4));
             }
-
         }
         catch (SQLException ex){
             System.out.println("Something went wrong " + ex.getMessage());
         }
-
         return newUser;
     }
 
@@ -389,7 +387,7 @@ public class LoanManager extends Book {
         try {
             Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/Music?useSSL=false","root","Hanna0811");
             PreparedStatement nps = conn.prepareStatement("UPDATE book SET antal = antal + 1 WHERE isbn=?");//Inte säker på kommandot
-            PreparedStatement nnps = conn.prepareStatement("DELETE from (LÅnadav, Kopplingstabellen?) where isbn = ? and (lånad av person? = ?)");//Inte säker på kommandot
+            PreparedStatement nnps = conn.prepareStatement("DELETE from bookuser where isbn = ? and loandId = ? ");//Inte säker på kommandot
 
             try {
                 Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/Music?useSSL=false", "root", "Hanna0811");

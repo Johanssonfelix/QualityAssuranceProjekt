@@ -41,8 +41,6 @@ public class BookHandler {
     }
 
 
-
-
     /*public Book[] getUserloans(){
         return loanManager.getLoanUser();
 

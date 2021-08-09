@@ -29,7 +29,7 @@ public class UserHandler {
     }
 
     /*public boolean checkUserBan(User user, LoanManager loanManager){
-        //if (user.getSuspendedUser())
+        if (user.getSuspendedUser())
     }*/
 
 
