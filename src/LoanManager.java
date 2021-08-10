@@ -387,7 +387,7 @@ public class LoanManager extends Book {
         try {
             Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/Music?useSSL=false","root","Hanna0811");
             PreparedStatement nps = conn.prepareStatement("UPDATE book SET antal = antal + 1 WHERE isbn=?");//Inte säker på kommandot
-            PreparedStatement nnps = conn.prepareStatement("DELETE from bookuser where isbn = ? AND loandId = ? ");//Inte säker på kommandot
+            PreparedStatement nnps = conn.prepareStatement("DELETE from bookuser where isbn = ? AND user.getUserId = ? ");//Inte säker på kommandot, kan vara loanId också...
             nnps.setInt(1, book.getBookISBN());
             nnps.setInt(2, user.getUserId());
             nps.setInt(1, book.getBookISBN());
