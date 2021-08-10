@@ -382,14 +382,18 @@ public class LoanManager extends Book {
     }
 
     // Jag, Felix har inte rört denna ännu
-  /*  public void returnBook(Book book, User user){
-/*
+    public void returnBook(Book book, User user){
+
         try {
             Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/Music?useSSL=false","root","Hanna0811");
             PreparedStatement nps = conn.prepareStatement("UPDATE book SET antal = antal + 1 WHERE isbn=?");//Inte säker på kommandot
             PreparedStatement nnps = conn.prepareStatement("DELETE from bookuser where isbn = ? AND loandId = ? ");//Inte säker på kommandot
+            nnps.setInt(1, book.getBookISBN());
+            nnps.setInt(2, user.getUserId());
+            nps.setInt(1, book.getBookISBN());
 
-            try {
+
+            /*try {
                 Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/Music?useSSL=false", "root", "Hanna0811");
 
            //     String sql = "DELETE FROM Row where loanId =?";
@@ -406,10 +410,8 @@ public class LoanManager extends Book {
                 System.out.println(ex.getMessage());
                 System.out.println("Något gick fel");
             }
-      /*
-            nnps.setInt(1, newbook.getBookISBN());
-            nnps.setInt(2, user.getUserId());
-            nps.setInt(1, newbook.getBookISBN());
+      */
+
 
 
 
