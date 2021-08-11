@@ -91,7 +91,10 @@ public class LoanSystem extends LoanManager {
 
                         } else if (option == 2) {
                             System.out.println("Vilken bok vill du lämna tillbaka?");
-                            // Return book
+                            System.out.println("Skriv in bokens namn");
+                            String boknamn = input.next();
+                            lm.returnBook(lm.getBookName(boknamn), user);
+
                         } else if (option == 3) {
                             System.out.println("Vilken bok vill du söka efter?");
                             System.out.println("Vill du söka efter namn eller isbn?");
@@ -153,7 +156,11 @@ public class LoanSystem extends LoanManager {
 
                         } else if (option == 2) {
                             System.out.println("Vilken bok vill du lämna tillbaka?");
-                            // Return book
+                            System.out.println("Skriv in bokens namn");
+                            String boknamn = input.next();
+                            lm.returnBook(lm.getBookName(boknamn), user);
+
+
                         } else if (option == 3) {
                             System.out.println("Vilken bok vill du söka efter?");
                             System.out.println("Vill du söka efter namn eller isbn?");

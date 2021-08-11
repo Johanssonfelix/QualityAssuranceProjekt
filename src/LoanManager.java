@@ -381,51 +381,22 @@ public class LoanManager extends Book {
         }
     }
 
-    // Jag, Felix har inte rört denna ännu
     public void returnBook(Book book, User user){
 
         try {
             Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/Music?useSSL=false","root","Hanna0811");
-            PreparedStatement nps = conn.prepareStatement("UPDATE book SET antal = antal + 1 WHERE isbn=?");//Inte säker på kommandot
-            PreparedStatement nnps = conn.prepareStatement("DELETE from bookuser where isbn = ? AND user.getUserId = ? ");//Inte säker på kommandot, kan vara loanId också...
+            PreparedStatement nps = conn.prepareStatement("UPDATE book SET numberofbooks = numberofbooks + 1 WHERE ISBN=?");//Inte säker på kommandot
+            PreparedStatement nnps = conn.prepareStatement("DELETE from bookuser where isbn = ? AND userId = ? ");//Inte säker på kommandot, kan vara loanId också...
             nnps.setInt(1, book.getBookISBN());
             nnps.setInt(2, user.getUserId());
             nps.setInt(1, book.getBookISBN());
-
-
-            /*try {
-                Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/Music?useSSL=false", "root", "Hanna0811");
-
-           //     String sql = "DELETE FROM Row where loanId =?";
-                PreparedStatement loan = conn.prepareStatement(sql);
-                loan.setInt(1, book.getBookISBN());
-                loan.setString(2, book.getBookName());
-                loan.setInt(3, user.getUserId());
-                loan.setDate(4, Date.valueOf(book.getLoanDate()));
-                loan.setDate(5, Date.valueOf(book.getReturnDate()));
-                loan.setInt(6,loanId++);
-                loan.executeUpdate();
-
-            } catch (SQLException ex) {
-                System.out.println(ex.getMessage());
-                System.out.println("Något gick fel");
-            }
-      */
-
-
-
 
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
 
-
-
+        System.out.println("Boken är återlämnad");
     }
-    /*
-
-   */
-
 
     // Jag, Felix har inte rört denna ännu
     public Book[] checkAvailableBooks(int isbn){
