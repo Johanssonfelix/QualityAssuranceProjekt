@@ -1,4 +1,16 @@
 
-2021-06-16 12:05:53,841 INFO LoanSystem [main] 7832 har lagt till 3 exemplar av McKenzies[217614]
-2021-08-09 10:42:21,971 INFO LoanSystem [main] 1 har lagt till 3 exemplar av test[12345]
-2021-08-09 10:56:46,337 INFO LoanSystem [main] 1 har raderat test[12345]
+2021-08-12 11:39:12,065 INFO LoanSystem [main] 1 har lånat Jag
+2021-08-12 11:42:17,861 INFO LoanSystem [main] 2 har lånat Jag
+2021-08-12 11:42:57,709 INFO LoanSystem [main] 2 har återlämnat Jag
+2021-08-12 11:45:14,858 INFO LoanSystem [main] 1 har återlämnat Jag
+2021-08-12 11:54:35,070 INFO LoanSystem [main] 2 har lånat Jag
+2021-08-12 11:57:04,918 INFO LoanSystem [main] 3 har lagt till 5 exemplar av Senna[940618]
+2021-08-12 12:07:46,355 INFO LoanSystem [main] 1 har lånat Änglarna
+2021-08-12 12:10:27,560 INFO LoanSystem [main] 2 har lånat Jag
+2021-08-12 12:11:24,411 INFO LoanSystem [main] 3 har lånat Gestapo
+2021-08-12 12:15:30,192 INFO LoanSystem [main] 14 har lånat FotbollensABC
+2021-08-12 12:33:41,664 INFO LoanSystem [main] 2 har lagt till 6 exemplar av Jakob[969696]
+2021-08-12 12:34:36,903 INFO LoanSystem [main] 2 har lånat Jakob
+2021-08-12 12:36:16,433 INFO LoanSystem [main] 14 har lånat Linux
+2021-08-12 12:36:59,384 INFO LoanSystem [main] 14 har återlämnat Linux
+2021-08-12 12:39:12,109 INFO LoanSystem [main] Cristian Vieri har raderats

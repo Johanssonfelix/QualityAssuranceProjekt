@@ -1,9 +1,8 @@
 import org.junit.jupiter.api.Test;
 
-import java.util.NoSuchElementException;
-
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 class LoanManagerTest {
 
@@ -44,6 +43,7 @@ class LoanManagerTest {
 
         assertTrue(actualMessage.contains(expectedMessage));
         }
+        /*
     @Test
     void loanBookISBNNull() {
 
@@ -62,6 +62,9 @@ class LoanManagerTest {
 
         assertTrue(actualMessage.contains(expectedMessage));
         }
+
+
+         */
 
     @Test
     void testAvailability_isAvailable(){

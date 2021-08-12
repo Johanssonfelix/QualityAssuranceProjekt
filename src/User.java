@@ -11,7 +11,7 @@ public class User {
     public String password;
     public int strikes;
     int suspendedUser;
-    // Fixa efter låna bok fungerar.
+
 
 
     public User() {
@@ -25,7 +25,7 @@ public class User {
         this.password = password;
         this.suspendedUser = 0;
         this.strikes = 0;
-
+        this.setCurrentnumberofloans(0);
         this.UsertypeDescription();
         this.setMaxLoans(userType);
     }
@@ -87,13 +87,7 @@ public class User {
         return suspendedUser;
     }
 
-    public void setCurrentnumberofloans(){
-        this.currentnumberofloans = currentnumberofloans;
-    }
 
-    public int getcurrentnumberofloans(int currentnumberofloans){
-        return currentnumberofloans;
-    }
 
 
     public void setMaxLoans(int userType) {
